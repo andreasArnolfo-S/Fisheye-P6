@@ -2,8 +2,6 @@ import { PhotographersApi } from './api/api.js'
 import { PhotographerCard } from './templates/HomeTemplate.js'
 import { PhotographerHeader } from './templates/PhotograherTemplate.js'
 
-import '../css/style.scss'
-
 class App {
   constructor () {
     this.$photographerSection = document.querySelector('.photographer_section')
