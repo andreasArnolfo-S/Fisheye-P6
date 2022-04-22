@@ -1,0 +1,53 @@
+@use "../layouts";
+
+.photographer_section {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 70px;
+  margin-top: 100px;
+  justify-content: center;
+  article {
+    justify-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    cursor: pointer;
+    &:hover img {
+      box-shadow: 1px 2px 18px gray;
+      border-radius: 20%;
+      transform: scale(1.05);
+    }
+    &:hover h2 {
+      color: black;
+    }
+    h2 {
+      color: #d3573c;
+      font-size: 36px;
+      margin-bottom: 0;
+      transition: 0.5s;
+    }
+    h3 {
+      color: #d3573c;
+      font-size: 16px;
+      margin: 0;
+    }
+    p {
+      font-size: 15px;
+      margin: 0;
+      &:nth-child(2) {
+        font-size: 15px;
+        color: rgb(182, 181, 181);
+        margin: 0;
+      }
+    }
+    img {
+      height: 200px;
+      width: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      transition: 0.5s;
+    }
+  }
+}
