@@ -10,6 +10,7 @@ import PhotographerCard from './templates/HomeTemplate'
 import PhotographerHeader from './templates/PhotograherTemplate'
 import PhotographerMedia from './templates/MediasTemplate'
 import Modal from './components/modal'
+import '../css/style.scss'
 
 class App {
 
@@ -50,9 +51,6 @@ class App {
 		const id = window.location.search.split('id=')[1]
 		const media = !id ? this.medias : this.medias.filter((e) => e.photographerId == id)
 		const photographer = !id ? this.photographers : this.photographers.filter((e) => e.id == id)
-		const mediasConteneur = document.createElement('div')
-		mediasConteneur.classList.add('media-content')
-		this.$photographerMedia.appendChild(mediasConteneur)
 
 		/** =======================
 		* *      Photographer header
@@ -64,6 +62,10 @@ class App {
 		/** =======================
 		* *      Photographer Medias
 		*========================**/
+		const mediasConteneur = document.createElement('div')
+		mediasConteneur.classList.add('media-content')
+		this.$photographerMedia.appendChild(mediasConteneur)
+
 		media.forEach((element) => {
 			const templateMedia = new PhotographerMedia(element)
 			mediasConteneur.appendChild(templateMedia.createPhotographerMedia())
