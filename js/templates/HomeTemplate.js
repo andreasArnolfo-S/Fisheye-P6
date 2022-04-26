@@ -1,18 +1,24 @@
-export class PhotographerCard {
-  constructor (photographer) {
-    this._photographer = photographer
-  }
+/* eslint-disable padded-blocks */
+/* eslint-disable linebreak-style */
+/* eslint-disable no-tabs */
+/* eslint-disable indent */
+export default class PhotographerCard {
 
-  createPhotographerCard () {
-    const articles = document.createElement('article')
+	constructor (photographer) {
+		this.photographer = photographer
+	}
 
-    articles.innerHTML = `<a href='photographers.html?id=${this._photographer.id}'>
-                                             <img src="../../assets/photographers/${this._photographer.portrait}" />
-                                             <h2>${this._photographer.name}</h2>
-                                             <p>${this._photographer.city}, ${this._photographer.country}</p>
-                                             <p>${this._photographer.tagline}</p>
-                                             <p>${this._photographer.price}€/jour</p>
+	createPhotographerCard () {
+		const articles = document.createElement('article')
+
+		articles.innerHTML = `<a href='photographers.html?id=${this.photographer.id}'>
+                                             <img src="../../assets/photographers/${this.photographer.portrait}" />
+                                             <h2>${this.photographer.name}</h2>
+                                             <p>${this.photographer.city}, ${this.photographer.country}</p>
+                                             <p>${this.photographer.tagline}</p>
+                                             <p>${this.photographer.price}€/jour</p>
                                         </a>`
-    return articles
-  }
+		return articles
+	}
+
 }

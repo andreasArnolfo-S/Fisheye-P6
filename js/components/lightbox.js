@@ -1,0 +1,19 @@
+/* eslint-disable padded-blocks */
+/* eslint-disable no-tabs */
+/* eslint-disable indent */
+
+export default class LightboxMedia {
+
+	constructor (data) {
+		this.data = data
+		this._lightbox = document.querySelector('.lightbox')
+		this._close = document.querySelector('.close')
+	}
+
+	openLightbox () {
+		console.log('coucou')
+		this._lightbox.style.display = 'block'
+		this._close.addEventListener('click', () => { this._lightbox.style.display = 'none' })
+	}
+
+}

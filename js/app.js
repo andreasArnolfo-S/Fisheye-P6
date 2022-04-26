@@ -1,44 +1,91 @@
-import { PhotographersApi } from './api/api.js'
-import { PhotographerCard } from './templates/HomeTemplate.js'
-import { PhotographerHeader } from './templates/PhotograherTemplate.js'
-import { PhotographerMedia } from './templates/MediasTemplate.js'
+/* eslint-disable eqeqeq */
+/* eslint-disable padded-blocks */
+/* eslint-disable no-tabs */
+/* eslint-disable indent */
+/** =======================
+ * *      Imports
+ *========================* */
+import PhotographersApi from './api/api'
+import PhotographerCard from './templates/HomeTemplate'
+import PhotographerHeader from './templates/PhotograherTemplate'
+import PhotographerMedia from './templates/MediasTemplate'
+import Modal from './components/modal'
+
 class App {
-  constructor () {
-    this.$photographerSection = document.querySelector('.photographer_section')
-    this.$photographerHeader = document.querySelector('.photograph-header')
-    this.$photographerMedia = document.querySelector('.photograph-medias')
-    this.datas = new PhotographersApi('../../data/photographers.json')
-  }
 
-  async home () {
-    const photographersData = await this.datas.getPhotographers()
-    this._photographers = photographersData.photographers
+	constructor () {
+		//   DOM elements
+		this.$main = document.querySelector('main')
+		this.$photographerSection = document.querySelector('.photographer_section')
+		this.$photographerHeader = document.querySelector('.photograph-header')
+		this.$photographerMedia = document.querySelector('.photograph-medias')
+		// JSON url
+		this.datas = new PhotographersApi('../../data/photographers.json')
+	}
 
-    this._photographers.forEach(photographer => {
-      const template = new PhotographerCard(photographer)
-      this.$photographerSection.appendChild(template.createPhotographerCard())
-    })
-  }
+	/** =======================
+	* *      Page Home
+	*========================**/
+	async home () {
 
-  async photographer () {
-    const photographerData = await this.datas.getPhotographers()
-    this._photographers = photographerData.photographers
-    this._medias = photographerData.media
-    const mediasConteneur = document.createElement('div')
-    mediasConteneur.classList.add('media-content')
-    this.$photographerMedia.appendChild(mediasConteneur)
-    const id = window.location.search.split('id=')[1]
-    // eslint-disable-next-line eqeqeq
-    const media = !id ? this._medias : this._medias.filter((media) => media.photographerId == id)
-    media.forEach(element => {
-      const templateMedia = new PhotographerMedia(element)
-      mediasConteneur.appendChild(templateMedia.createPhotographerMedia())
-    })
-    const templatedeux = new PhotographerHeader(this._photographers)
-    this.$photographerHeader.appendChild(templatedeux.createPhotographerHeader())
-  }
+		const photographersData = await this.datas.getPhotographers()
+
+		this.photographers = photographersData.photographers
+
+		this.photographers.forEach((photographer) => {
+			const template = new PhotographerCard(photographer)
+			this.$photographerSection.appendChild(template.createPhotographerCard())
+		})
+
+	}
+
+	/** =======================
+	* *      Page Photographer
+	*========================**/
+	async photographer () {
+
+		const photographerData = await this.datas.getPhotographers()
+		this.photographers = photographerData.photographers
+		this.medias = photographerData.media
+		const id = window.location.search.split('id=')[1]
+		const media = !id ? this.medias : this.medias.filter((e) => e.photographerId == id)
+		const photographer = !id ? this.photographers : this.photographers.filter((e) => e.id == id)
+		const mediasConteneur = document.createElement('div')
+		mediasConteneur.classList.add('media-content')
+		this.$photographerMedia.appendChild(mediasConteneur)
+
+		/** =======================
+		* *      Photographer header
+		*========================**/
+		const templatedeux = new PhotographerHeader(photographer)
+		this.$photographerHeader.appendChild(
+			templatedeux.createPhotographerHeader()
+		)
+		/** =======================
+		* *      Photographer Medias
+		*========================**/
+		media.forEach((element) => {
+			const templateMedia = new PhotographerMedia(element)
+			mediasConteneur.appendChild(templateMedia.createPhotographerMedia())
+		})
+		/** =======================
+		* *      Modal
+		*========================**/
+		const modalTemplate = new Modal(this.photographers)
+		this.$main.appendChild(modalTemplate.createModalTemplate())
+		// Close modal
+		const btnCloseModal = document.querySelector('.closeModal')
+		const modal = document.querySelector('.contact_modal')
+		btnCloseModal.addEventListener('click', () => {
+			modal.style.display = 'none'
+		})
+
+	}
+
 }
 
 const app = new App()
+
 app.home()
+
 app.photographer()
