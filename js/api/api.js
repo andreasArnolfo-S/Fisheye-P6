@@ -4,7 +4,9 @@
 class Api {
 
 	constructor (url) {
+		url = '../../data/photographers.json'
 		this.url = url
+
 	}
 
 	async get () {
@@ -18,10 +20,24 @@ class Api {
 
 }
 
-export default class PhotographersApi extends Api {
+export class PhotographersApi extends Api {
 
 	async getPhotographers () {
-		return await this.get()
+		this.photographersData = await this.get()
+		this.photographers = this.photographersData.photographers
+
+		return this.photographers
+	}
+
+}
+
+export class MediasApi extends Api {
+
+	async getMedias () {
+		this.mediasData = await this.get()
+		this.medias = this.mediasData.media
+
+		return this.medias
 	}
 
 }

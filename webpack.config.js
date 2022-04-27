@@ -8,6 +8,9 @@ module.exports = {
   },
   mode: 'development',
   watch: true,
+  optimization: {
+    minimize: true
+  },
   module: {
     rules: [
       {

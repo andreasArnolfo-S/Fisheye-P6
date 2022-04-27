@@ -19,18 +19,21 @@ export default class PhotographerMedia {
 		const like = new Like(this.media)
 		documentFragment.appendChild(article)
 		article.appendChild(like.createLikeTemplates())
+		const mediaImage = Object.prototype.hasOwnProperty.call(this.media, 'image')
+		const mediaVideo = Object.prototype.hasOwnProperty.call(this.media, 'video')
 
-		if (this.media.hasOwnProperty('image')) {
+		if (mediaImage) {
 			img.setAttribute('src', ` ../../assets/medias/${this.media.image}`)
 			// img.addEventListener('click', () => {
 			//   const lightbox = new LightboxMedia(this._media.image)
 			//   return lightbox.openLightbox()
 			// })
 			article.appendChild(img)
-		} else if (this.media.hasOwnProperty('video')) {
+		} else if (mediaVideo) {
 			video.setAttribute('src', ` ../../assets/medias/${this.media.video}`)
 			article.appendChild(video)
 		}
 		return article
 	}
+
 }
