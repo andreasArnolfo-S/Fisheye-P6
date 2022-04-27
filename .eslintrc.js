@@ -10,5 +10,9 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module'
   },
-  rules: {}
+  ignorePatterns: [
+    '**/dist/*.js'
+  ],
+  rules: {
+  }
 }

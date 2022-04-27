@@ -5,7 +5,7 @@
 /** =======================
  * *      Imports
  *========================* */
-import PhotographersApi from './api/api'
+import { PhotographersApi, MediasApi } from './api/api'
 import PhotographerCard from './templates/HomeTemplate'
 import PhotographerHeader from './templates/PhotograherTemplate'
 import PhotographerMedia from './templates/MediasTemplate'
@@ -20,8 +20,9 @@ class App {
 		this.$photographerSection = document.querySelector('.photographer_section')
 		this.$photographerHeader = document.querySelector('.photograph-header')
 		this.$photographerMedia = document.querySelector('.photograph-medias')
-		// JSON url
-		this.datas = new PhotographersApi('../../data/photographers.json')
+		// JSON
+		this.photographersApi = new PhotographersApi().getPhotographers()
+		this.mediasApi = new MediasApi().getMedias()
 	}
 
 	/** =======================
@@ -29,11 +30,10 @@ class App {
 	*========================**/
 	async home () {
 
-		const photographersData = await this.datas.getPhotographers()
+		const photographersData = await this.photographersApi
+		this.photographers = photographersData
 
-		this.photographers = photographersData.photographers
-
-		this.photographers.forEach((photographer) => {
+		photographersData.forEach((photographer) => {
 			const template = new PhotographerCard(photographer)
 			this.$photographerSection.appendChild(template.createPhotographerCard())
 		})
@@ -45,13 +45,11 @@ class App {
 	*========================**/
 	async photographer () {
 
-		const photographerData = await this.datas.getPhotographers()
-		this.photographers = photographerData.photographers
-		this.medias = photographerData.media
+		const mediasData = await this.mediasApi
+		const photographerData = await this.photographersApi
 		const id = window.location.search.split('id=')[1]
-		const media = !id ? this.medias : this.medias.filter((e) => e.photographerId == id)
-		const photographer = !id ? this.photographers : this.photographers.filter((e) => e.id == id)
-
+		const media = !id ? mediasData : mediasData.filter((e) => e.photographerId == id)
+		const photographer = !id ? photographerData : photographerData.filter((e) => e.id == id)
 		/** =======================
 		* *      Photographer header
 		*========================**/

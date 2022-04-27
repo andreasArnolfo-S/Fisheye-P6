@@ -4,10 +4,14 @@
   "description": "",
   "private": true,
   "dependencies": {
+    "core-js": "^3.22.2",
     "css-loader": "^6.7.1",
     "style-loader": "^3.3.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "@babel/preset-env": "^7.16.11",
+    "babel-loader": "^8.2.5",
     "eslint": "^8.2.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-standard": "^17.0.0",
