@@ -5,23 +5,38 @@ export class LightboxMedia {
 
 	constructor (data) {
 		this.data = data
-		this._close = document.querySelector('.close')
+		this.body = document.querySelector('body')
 	}
 
 	async openLightbox () {
 		const mediasData = await this.data
 		this._lightbox = document.createElement('div')
 		this._lightbox.classList.add('lightbox')
+		this.template = new LightboxTemplate(mediasData)
+		this._lightbox.innerHTML = this.template.lightboxTemplate()
+		this._lightbox.style.display = 'block'
+		this.body.appendChild(this._lightbox)
+		const close = document.querySelector('.close')
+		close.addEventListener('click', () => {
+			this.body.removeChild(this._lightbox)
+		})
+		return this._lightbox
+	}
 
-		this._lightbox.innerHTML = ` 
+}
+
+class LightboxTemplate {
+
+	constructor (data) {
+		this._data = data
+	}
+
+	lightboxTemplate () {
+		return ` 
 			<button type="button" class="close">X</button>
-			<img src=" ../../assets/medias/${mediasData.image}" role="image" alt="${mediasData.title}" />
+			<img src=" ../../assets/medias/${this._data.image}" role="image" alt="${this._data.title}" />
 			`
 
-		this._lightbox.style.display = 'block'
-		this._close.addEventListener('click', () => { this._lightbox.style.display = 'none' })
-		console.log(mediasData)
-		return this._lightbox
 	}
 
 }

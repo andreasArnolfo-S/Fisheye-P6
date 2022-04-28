@@ -6,6 +6,7 @@
 import { HomePage } from './Vue/Home'
 import { PhotographerPage } from './Vue/Photographers'
 import '../css/style.scss'
+
 class App {
 
      constructor () {
