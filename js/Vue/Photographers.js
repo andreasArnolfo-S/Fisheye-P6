@@ -4,21 +4,22 @@
 /* eslint-disable indent */
 
 import { PhotographerApi, MediaApi } from '../api/api'
+import { LightboxMedia } from '../components/lightbox'
 import Like from '../components/Like'
 import Modal from '../components/modal'
 
 export class PhotographerPage {
 
-     constructor () {
-          this.mediasApi = new MediaApi().getMedia()
-          this.photographerApi = new PhotographerApi().getPhotographer()
-          this.$photographerHeader = document.querySelector('.photograph-header')
+	constructor () {
+		this.mediasApi = new MediaApi().getMedia()
+		this.photographerApi = new PhotographerApi().getPhotographer()
+		this.$photographerHeader = document.querySelector('.photograph-header')
 		this.$photographerMedia = document.querySelector('.media-content')
 		this.$main = document.querySelector('body')
-     }
+	}
 
-     async photographer () {
-          const mediasData = await this.mediasApi
+	async photographer () {
+		const mediasData = await this.mediasApi
 		const photographerData = await this.photographerApi
 		const templatedeux = new PhotographerHeader(photographerData)
 		this.$photographerHeader.appendChild(templatedeux.createPhotographerHeader())
@@ -36,7 +37,7 @@ export class PhotographerPage {
 		btnCloseModal.addEventListener('click', () => {
 			modal.style.display = 'none'
 		})
-     }
+	}
 
 }
 
@@ -50,7 +51,7 @@ class PhotographerHeader {
 		const photographerSection = document.createElement('section')
 		photographerSection.classList.add('Photographer-flex')
 
-		photographerSection.innerHTML = `  <div>
+		photographerSection.innerHTML = ` <div>
                                                                       <h1>${this._photographer.name}</h1>
                                                                       <h4>${this._photographer.city}, ${this._photographer.country}</h4>
                                                                       <p>${this._photographer.tagline}</p>
@@ -71,7 +72,7 @@ class PhotographerMedia {
 
 	constructor (data) {
 		this.media = data
-          this.mediaImage = Object.prototype.hasOwnProperty.call(this.media, 'image')
+		this.mediaImage = Object.prototype.hasOwnProperty.call(this.media, 'image')
 		this.mediaVideo = Object.prototype.hasOwnProperty.call(this.media, 'video')
 	}
 
@@ -86,10 +87,11 @@ class PhotographerMedia {
 
 		if (this.mediaImage) {
 			img.setAttribute('src', ` ../../assets/medias/${this.media.image}`)
-			// img.addEventListener('click', () => {
-			//   const lightbox = new LightboxMedia(this._media.image)
-			//   return lightbox.openLightbox()
-			// })
+			img.addEventListener('click', () => {
+				const lightbox = new LightboxMedia(this.media)
+
+				return lightbox.openLightbox()
+			})
 			article.appendChild(img)
 		} else if (this.mediaVideo) {
 			video.setAttribute('src', ` ../../assets/medias/${this.media.video}`)

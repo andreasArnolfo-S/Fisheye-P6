@@ -10,12 +10,14 @@ export default class Like {
 
     createLikeTemplates () {
         this.heart = document.createElement('div')
+
         this.heart.classList.add('like-content')
         this.heart.innerHTML = `<div class="like">
                                                     <h2 class="photo-title">${this.data.title}</h2>
-                                                    <h2 class="num-likes">${this.data.likes}<i class="fa-solid fa-heart"></i></h2>
+                                                    <h2 class="num-likes">${this.data.likes}<i  class="fa-regular fa-heart icon"></i></h2>
                                                 </div>`
         return this.heart
     }
 
 }
+

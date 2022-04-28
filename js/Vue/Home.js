@@ -37,7 +37,7 @@ class PhotographerCard {
           const articles = document.createElement('article')
 
           articles.innerHTML = `<a href='photographers.html?id=${this.photographer.id}'>
-                                             <img src="../../assets/photographers/${this.photographer.portrait}" />
+                                             <img src="../../assets/photographers/${this.photographer.portrait}" alt="portrait" />
                                              <h2>${this.photographer.name}</h2>
                                              <p>${this.photographer.city}, ${this.photographer.country}</p>
                                              <p>${this.photographer.tagline}</p>
