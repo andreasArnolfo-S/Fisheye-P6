@@ -1,5 +1,17 @@
-.logo {
-     height: 50px;
-     margin-left: 100px;
-     cursor: pointer;
- }
+@use '../abstracts' as c;
+header {
+	flex-wrap: wrap;
+	.logo {
+		height: 50px;
+		margin-left: 100px;
+		cursor: pointer;
+        @include c.mobile-only {
+            margin: auto;
+        }
+	}
+    h1 {
+        @include c.mobile-only {
+            margin: 0 auto;
+        }
+    }
+}

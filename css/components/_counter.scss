@@ -1,0 +1,23 @@
+.static-counter {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: fixed;
+	right: 4rem;
+	bottom: 0rem;
+	padding: 1.5rem;
+	background-color: #d3573c;
+	color: #000;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	width: 20rem;
+	height: 2.5rem;
+	font-size: 1.5rem;
+	.totalLikes {
+		display: flex;
+		align-items: baseline;
+		p {
+			margin-right: 0.5rem;
+		}
+	}
+}

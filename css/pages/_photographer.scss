@@ -1,26 +1,55 @@
+@use "../abstracts" as c;
 .photograph-header {
 	height: 300px;
 	margin: 0 100px;
+	@include c.tablette-only {
+		height: 500px;
+		margin: auto;
+	}
 }
 .Photographer-flex {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
+	@include c.tablette-only {
+		flex-direction: column-reverse;
+		justify-content: center;
+	}
 	div {
 		width: 30%;
+		@include c.tablette-only {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			margin-top: 30px;
+		}
+		@include c.mobile-only {
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
 	}
 	h1 {
 		color: #d3573c;
 		font-size: 45px;
+		@include c.tablette-only {
+			margin: auto;
+		}
 	}
-	h4 {
+	h2 {
 		color: #901c1c;
 		margin-bottom: 0;
 		font-size: 20px;
+		@include c.tablette-only {
+			margin: auto;
+		}
 	}
 	p {
 		margin-top: 5px;
+		@include c.tablette-only {
+			margin: auto;
+		}
 	}
 }
 .buttonModal {
@@ -35,6 +64,9 @@
 	border-radius: 5px;
 	cursor: pointer;
 	margin-left: 25%;
+	@include c.tablette-only {
+		margin: auto;
+	}
 	&:hover {
 		background-color: #d3573c;
 	}
@@ -42,12 +74,23 @@
 .media-content {
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: center;
 	article {
 		margin: 25px;
-		width: 30%;
+		width: 28%;
 		height: 350px;
 		cursor: pointer;
 		position: relative;
+
+		@include c.tablette-only {
+			width: 40%;
+		}
+		@include c.mobile-only {
+			width: 80%;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
 		img {
 			border-radius: 20px;
 			object-fit: cover;
@@ -63,7 +106,10 @@
 			transition: 0.6s;
 		}
 		&:hover img {
-			transform: scale(1.03);
+			border-radius: 40px;
+		}
+		&:hover video {
+			border-radius: 40px;
 		}
 	}
 }
@@ -74,22 +120,36 @@
 	height: 250px;
 	object-fit: cover;
 	margin-left: 25%;
+	@include c.tablette-only {
+		margin: auto;
+	}
+	@include c.mobile-only {
+		width: 200px;
+		height: 200px;
+	}
 }
 
 .like-content {
 	position: absolute;
-	bottom: 0;
+	bottom: -5px;
 	width: 100%;
-	.like {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-
-		.photo-title {
-			color: #901c1c;
-		}
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	.photo-title {
+		color: #901c1c;
+		text-overflow: ellipsis;
+	}
+	.likeBtn {
+		background-color: transparent;
+		border: none;
+		font-size: 30px;
 		.num-likes {
 			color: #901c1c;
+		}
+		.fa-heart {
+			color: #901c1c;
+			cursor: pointer;
 		}
 	}
 }

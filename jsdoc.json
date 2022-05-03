@@ -1,0 +1,19 @@
+{
+     "plugins": ["plugins/markdown", "plugins/summarize"],
+     "recurseDepth": 10,
+     "source": {
+          "include": ["js"],
+         "includePattern": ".js$",
+         "excludePattern": "(nodes_modules/|docs)"
+     },
+     "templates": {
+          "cleverLinks": true,
+          "monospaceLinks": true
+      },
+      "opts": {
+          "template": "node_modules/tui-jsdoc-template",
+          "encoding": "utf8",               
+          "destination": "./docs/",         
+          "recurse": true             
+      }
+ }

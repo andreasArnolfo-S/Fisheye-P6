@@ -22,24 +22,24 @@ export default class Modal {
                                                   <h2>Contactez-moi</h2>
                                                   <h2>${this._data.name}</h2>
                                                 </div>
-                                                  <img src="./assets/icons/close.svg" class="closeModal" />
+                                                  <img src="./assets/icons/close.svg" class="closeModal" alt="image pour fermer la modal" />
                                               </div>
-                                              <form>
+                                              <form action="" method="get" id="contact-form">
                                                   <div class="data-form">
-                                                      <label>Prénom</label>
-                                                      <input />
+                                                      <label for="firstname">Prénom :</label>
+                                                        <input type="text" name="firstname" id="firstname" >
                                                   </div>
                                                   <div class="data-form">
-                                                      <label>Nom</label>
-                                                      <input />
+                                                      <label for="lastname">Nom</label>
+                                                      <input type="text" name="lastname" id="lastname">
                                                   </div>
                                                   <div class="data-form">
-                                                      <label>Email</label>
-                                                      <input />
+                                                      <label for="email">Email</label>
+                                                      <input type="email" name="email" id="email">
                                                   </div>
                                                   <div class="data-form">
-                                                      <label>Votre message</label>
-                                                      <textarea>Message...</textarea>
+                                                      <label for="message">Votre message</label>
+                                                      <textarea type="text" id="message">Message...</textarea>
                                                   </div>
                                                   <button type='submit' class="contact_button">Envoyer</button>
                                               </form>
