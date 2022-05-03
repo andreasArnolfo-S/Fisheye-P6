@@ -2,33 +2,68 @@
 	display: none; /* Hidden by default */
 	position: fixed; /* Stay in place */
 	z-index: 1; /* Sit on top */
-	padding-top: 100px; /* Location of the box */
+
 	left: 0;
 	top: 0;
 	width: 100%; /* Full width */
 	height: 100%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
 	background-color: rgb(0, 0, 0); /* Fallback color */
 	background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
 	.close {
 		position: absolute;
 		top: 15px;
 		right: 35px;
+		z-index: 5;
 		color: #f1f1f1;
+		background-color: transparent;
+		border: none;
 		font-size: 40px;
 		font-weight: bold;
 		transition: 0.3s;
-          display: block;
-          cursor: pointer;
+		display: block;
+		cursor: pointer;
 		&:hover &:focus {
 			color: #bbb;
 			text-decoration: none;
-			
 		}
 	}
-	img {
-		width: 50%;
-		height: 500px;
-		object-fit: cover;
+	.carousel-wrapper {
+		overflow: hidden;
+		width: 100%;
+		.carousel {
+			transform-style: preserve-3d;
+
+			img, video {
+				opacity: 1;
+				width: 60%;
+				height: 600px;
+				margin: auto;
+				padding-top: 4rem;
+				padding-left: 20%;
+				object-fit: cover;
+			}
+			.active {
+				opacity: 1;
+			}
+			.carousel__button--prev,
+			.carousel__button--next {
+				position: absolute;
+				top: 50%;
+				width: 3rem;
+				height: 3rem;
+				background-color: #fff;
+				transform: translateY(-50%);
+				border-radius: 50%;
+				cursor: pointer;
+				z-index: 1001; /* Sit on top of everything */
+				border: 1px solid black;
+			}
+			.carousel__button--prev {
+				left: 0;
+			}
+			.carousel__button--next {
+				right: 0;
+			}
+		}
 	}
 }

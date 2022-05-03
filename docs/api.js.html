@@ -1,0 +1,188 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Source: api.js | Source: api.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/tui-doc.css">
+
+    
+</head>
+<body>
+<nav class="lnb" id="lnb">
+    <div class="logo" style="">
+        
+            <img src="img/toast-ui.png" width="100%" height="100%">
+        
+    </div>
+    <div class="title">
+        <h1><a href="index.html" class="link">Source: api.js</a></h1>
+        
+    </div>
+    <div class="search-container" id="search-container">
+        <input type="text" placeholder="Search">
+        <ul></ul>
+    </div>
+    
+    <div class="lnb-api hidden"><h3>Modules</h3><ul><li><a href="module-api%2520module.html">api module</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="module:api module_sub"></div></li></ul></div><div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="module-api%2520module.AllMediasApi.html">AllMediasApi</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="module:api module.AllMediasApi_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="module-api%252520module.AllMediasApi.html#getMedias">getMedias</a></li></ul></div></li><li><a href="module-api%2520module.AllPhotographersApi.html">AllPhotographersApi</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="module:api module.AllPhotographersApi_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="module-api%252520module.AllPhotographersApi.html#getPhotographers">getPhotographers</a></li></ul></div></li><li><a href="module-api%2520module.MediaApi.html">MediaApi</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="module:api module.MediaApi_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="module-api%252520module.MediaApi.html#getMedia">getMedia</a></li></ul></div></li><li><a href="module-api%2520module.PhotographerApi.html">PhotographerApi</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="module:api module.PhotographerApi_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="module-api%252520module.PhotographerApi.html#getPhotographer">getPhotographer</a></li></ul></div></li><li><a href="module-api%2520module-Api.html">Api</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="module:api module~Api_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="module-api%252520module-Api.html#get">get</a></li></ul></div></li></ul></div>
+</nav>
+<div id="resizer"></div>
+
+<div class="main" id="main">
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* eslint-disable eqeqeq */
+/* eslint-disable padded-blocks */
+/* eslint-disable no-tabs */
+/* eslint-disable indent */
+
+/**
+ * @file Api est mon ficher qui gere les datas
+ * @author Andreas Arnolfo
+ * @module api module
+ */
+
+/**
+ * @class qui fetch mon fichier Json
+ */
+class Api {
+
+	constructor () {
+		this.url = '../../data/photographers.json'
+	}
+
+	/**
+	 * Function qui fetch mon fichier Json
+	 * @property {Function} get obtiens toute les datas
+	 * @return response
+	 */
+	async get () {
+
+		return fetch(this.url)
+			.then((res) => res.json())
+			.then((res) => res)
+			.catch((err) =>
+				console.log('une erreur est survenue :', err)
+			)
+	}
+
+}
+/**
+ * Class qui recupere tout les photographes du fichier Json
+ * @extends Api
+ */
+export class AllPhotographersApi extends Api {
+	/**
+	 * @property {Function} getPhotographers Obtien tout les photographes
+	 * @return  tout les photographes
+	 */
+	async getPhotographers () {
+		this.photographersData = await this.get()
+		this.photographers = this.photographersData.photographers
+
+		return this.photographers
+	}
+
+}
+
+/**
+ * Class qui recupere le photographe qui correspond a l'id dans l'url
+ * @extends AllPhotographersApi
+ */
+export class PhotographerApi extends AllPhotographersApi {
+	/**
+	 * @property {Function} getPhotographer Obtien le photographe qui correspond a l'id dans l'url
+	 * @return  le photographe
+	 */
+	async getPhotographer () {
+		this.photographerData = await this.getPhotographers()
+		const params = (new URL(document.location)).searchParams
+		const id = params.get('id')
+		this.photographer = this.photographerData.filter((e) => e.id == id)
+
+		return this.photographer
+	}
+
+}
+/**
+ * Class qui recupere tout les medias
+ * @extends Api
+ */
+export class AllMediasApi extends Api {
+	/**
+	 * @property {Function} getMedias Obtien tout les medias
+	 * @return  les medias
+	 */
+	async getMedias () {
+		this.mediasData = await this.get()
+		this.medias = this.mediasData.media
+
+		return this.medias
+	}
+
+}
+
+/**
+ * Class qui recupere les medias du photographe qui correspond a l'id dans l'url
+ * @extends AllMediasApi
+ */
+export class MediaApi extends AllMediasApi {
+	/**
+	 * @property {Function} getMedia Obtien le photographe qui correspond a l'id dans l'url
+	 * @return  les medias correspondant
+	 */
+	async getMedia () {
+		this.medias = await this.getMedias()
+		const params = (new URL(document.location)).searchParams
+		const id = params.get('id')
+		this.media = this.medias.filter((e) => e.photographerId == id)
+
+		return this.media
+	}
+
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<footer>
+    <img class="logo" src="img/toast-ui.png" style="">
+    <div class="footer-text">NHN Entertainment. Frontend Development Lab</div>
+</footer>
+<script>prettyPrint();</script>
+<script src="scripts/jquery.min.js"></script>
+<script src="scripts/tui-doc.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+    <script>
+        var id = '_sub'.replace(/"/g, '_');
+        var selectedApi = document.getElementById(id); // do not use jquery selector
+        var $selectedApi = $(selectedApi);
+
+        $selectedApi.removeClass('hidden');
+        $selectedApi.parent().find('.glyphicon').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+        showLnbApi();
+    </script>
+
+</body>
+</html>

@@ -3,22 +3,28 @@
 /* eslint-disable no-tabs */
 /* eslint-disable indent */
 
-/** ------------------------------------------------------------------------
- * *                           				API
- * ! Desciption des class :
- * ? Api => global Json
- * ? AllPhotographersApi => tous les photographes sans les medias
- * ? AllMediasApi => tous les medias sans les photographes
- * ? PhotographerApi => photographe correspondant a l'id passer dans l'url
- * ? MediaApi => media correspondant a l'id du photographe passer dans l'url
- *------------------------------------------------------------------------**/
+/**
+ * @file Api est mon ficher qui gere les datas
+ * @author Andreas Arnolfo
+ * @module api module
+ */
+
+/**
+ * @class qui fetch mon fichier Json
+ */
 class Api {
 
 	constructor () {
 		this.url = '../../data/photographers.json'
 	}
 
+	/**
+	 * Function qui fetch mon fichier Json
+	 * @property {Function} get obtiens toute les datas
+	 * @return response
+	 */
 	async get () {
+
 		return fetch(this.url)
 			.then((res) => res.json())
 			.then((res) => res)
@@ -28,9 +34,15 @@ class Api {
 	}
 
 }
-
+/**
+ * Class qui recupere tout les photographes du fichier Json
+ * @extends Api
+ */
 export class AllPhotographersApi extends Api {
-
+	/**
+	 * @property {Function} getPhotographers Obtien tout les photographes
+	 * @return  tout les photographes
+	 */
 	async getPhotographers () {
 		this.photographersData = await this.get()
 		this.photographers = this.photographersData.photographers
@@ -40,8 +52,15 @@ export class AllPhotographersApi extends Api {
 
 }
 
+/**
+ * Class qui recupere le photographe qui correspond a l'id dans l'url
+ * @extends AllPhotographersApi
+ */
 export class PhotographerApi extends AllPhotographersApi {
-
+	/**
+	 * @property {Function} getPhotographer Obtien le photographe qui correspond a l'id dans l'url
+	 * @return  le photographe
+	 */
 	async getPhotographer () {
 		this.photographerData = await this.getPhotographers()
 		const params = (new URL(document.location)).searchParams
@@ -52,9 +71,15 @@ export class PhotographerApi extends AllPhotographersApi {
 	}
 
 }
-
+/**
+ * Class qui recupere tout les medias
+ * @extends Api
+ */
 export class AllMediasApi extends Api {
-
+	/**
+	 * @property {Function} getMedias Obtien tout les medias
+	 * @return  les medias
+	 */
 	async getMedias () {
 		this.mediasData = await this.get()
 		this.medias = this.mediasData.media
@@ -64,8 +89,15 @@ export class AllMediasApi extends Api {
 
 }
 
+/**
+ * Class qui recupere les medias du photographe qui correspond a l'id dans l'url
+ * @extends AllMediasApi
+ */
 export class MediaApi extends AllMediasApi {
-
+	/**
+	 * @property {Function} getMedia Obtien le photographe qui correspond a l'id dans l'url
+	 * @return  les medias correspondant
+	 */
 	async getMedia () {
 		this.medias = await this.getMedias()
 		const params = (new URL(document.location)).searchParams
