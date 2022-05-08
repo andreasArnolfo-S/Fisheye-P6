@@ -9,9 +9,6 @@
  * @module api module
  */
 
-/**
- * @class qui fetch mon fichier Json
- */
 class Api {
 
 	constructor () {
@@ -19,9 +16,8 @@ class Api {
 	}
 
 	/**
-	 * Function qui fetch mon fichier Json
-	 * @property {Function} get obtiens toute les datas
-	 * @return response
+	 * Il renvoie une promesse qui se résout en résultat d'une requête de récupération
+	 * @returns La méthode de récupération est renvoyée.
 	 */
 	async get () {
 
@@ -34,14 +30,11 @@ class Api {
 	}
 
 }
-/**
- * Class qui recupere tout les photographes du fichier Json
- * @extends Api
- */
+
 export class AllPhotographersApi extends Api {
 	/**
-	 * @property {Function} getPhotographers Obtien tout les photographes
-	 * @return  tout les photographes
+	 * Il obtient les données des photographes à partir de l'API, puis renvoie les photographes.
+	 * @returns Le tableau des photographes.
 	 */
 	async getPhotographers () {
 		this.photographersData = await this.get()
@@ -51,34 +44,29 @@ export class AllPhotographersApi extends Api {
 	}
 
 }
-
-/**
- * Class qui recupere le photographe qui correspond a l'id dans l'url
- * @extends AllPhotographersApi
- */
 export class PhotographerApi extends AllPhotographersApi {
 	/**
-	 * @property {Function} getPhotographer Obtien le photographe qui correspond a l'id dans l'url
-	 * @return  le photographe
+	 * Il obtient les données du photographe à partir de l'API, les filtre en fonction de l'identifiant
+	 * transmis et renvoie le photographe.
+	 * @param id - L'identifiant du photographe que vous souhaitez obtenir.
+	 * @returns L'objet photographe.
 	 */
-	async getPhotographer () {
+	async getPhotographer (id) {
 		this.photographerData = await this.getPhotographers()
-		const params = (new URL(document.location)).searchParams
-		const id = params.get('id')
+
 		this.photographer = this.photographerData.filter((e) => e.id == id)
 
 		return this.photographer
 	}
 
 }
-/**
- * Class qui recupere tout les medias
- * @extends Api
- */
 export class AllMediasApi extends Api {
 	/**
-	 * @property {Function} getMedias Obtien tout les medias
-	 * @return  les medias
+	 * Il obtient les données multimédias de l'API, puis il définit les données multimédias sur la
+	 * propriété multimédia, puis il renvoie la propriété multimédia.
+	 * La fonction est asynchrone car elle utilise le mot clé await. Le mot clé await est utilisé pour
+	 * attendre qu'une promesse soit résolue ou rejetée.
+	 * @returns Le tableau des médias
 	 */
 	async getMedias () {
 		this.mediasData = await this.get()
@@ -89,19 +77,15 @@ export class AllMediasApi extends Api {
 
 }
 
-/**
- * Class qui recupere les medias du photographe qui correspond a l'id dans l'url
- * @extends AllMediasApi
- */
 export class MediaApi extends AllMediasApi {
 	/**
-	 * @property {Function} getMedia Obtien le photographe qui correspond a l'id dans l'url
-	 * @return  les medias correspondant
+	 * Il récupère tous les médias de la base de données, puis les filtre par le photographe Id
+	 * @param id - L'identifiant du photographe
+	 * @returns Le tableau des médias
 	 */
-	async getMedia () {
+	async getMedia (id) {
 		this.medias = await this.getMedias()
-		const params = (new URL(document.location)).searchParams
-		const id = params.get('id')
+
 		this.media = this.medias.filter((e) => e.photographerId == id)
 
 		return this.media

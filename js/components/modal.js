@@ -10,6 +10,11 @@ export default class Modal {
 		this._data = data[0]
 	}
 
+    /**
+     * It creates a modal template, adds a click event listener to the button that opens the modal, and
+     * returns the modal.
+     * @returns The modal is being returned.
+     */
 	createModalTemplate () {
 		const modal = document.createElement('div')
 		modal.setAttribute('role', 'dialog')
@@ -39,7 +44,7 @@ export default class Modal {
                                                   </div>
                                                   <div class="data-form">
                                                       <label for="message">Votre message</label>
-                                                      <textarea type="text" id="message">Message...</textarea>
+                                                      <textarea type="text" id="message"></textarea>
                                                   </div>
                                                   <button type='submit' class="contact_button">Envoyer</button>
                                               </form>

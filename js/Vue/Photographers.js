@@ -1,38 +1,47 @@
 /* eslint-disable no-return-assign */
-/* eslint-disable eqeqeq */
 /* eslint-disable padded-blocks */
 /* eslint-disable no-tabs */
 /* eslint-disable indent */
-
 import { PhotographerApi, MediaApi } from '../api/api'
-import { LightboxMedia } from '../components/lightbox'
+import { TotalLikes } from '../components/TotalLike'
+// import { PhotographerHeader } from '../components/photographerHeader'
+import { PhotographerFactory } from '../components/PhotographerFactory'
+import { PhotographerMedia } from '../components/photographerMedia'
 import Modal from '../components/modal'
 
 export class PhotographerPage {
 
 	constructor () {
-		this.mediasApi = new MediaApi().getMedia()
-		this.photographerApi = new PhotographerApi().getPhotographer()
+          /* Il obtient l'identifiant de l'url. */
+		const params = (new URL(document.location)).searchParams
+		this.id = params.get('id')
+		this.mediasApi = new MediaApi()
+		this.photographerApi = new PhotographerApi()
 		this.$photographerHeader = document.querySelector('.photograph-header')
 		this.$photographerMedia = document.querySelector('.media-content')
 		this.$main = document.querySelector('body')
 	}
 
 	async photographer () {
-		const mediasData = await this.mediasApi
-		const photographerData = await this.photographerApi
-		const templatedeux = new PhotographerHeader(photographerData)
-		this.$photographerHeader.appendChild(templatedeux.createPhotographerHeader())
+		const mediasData = await this.mediasApi.getMedia(this.id)
+		const photographerData = await this.photographerApi.getPhotographer(this.id)
 
-		mediasData.forEach((element) => {
+		const templatedeux = new PhotographerFactory(photographerData[0])
+		this.$photographerHeader.appendChild(templatedeux.PhotographerPage())
+
+		/* C'est une boucle qui créera une nouvelle instance de PhotographerMedia pour chaque élément du
+		tableau. */
+		mediasData.forEach((element, index) => {
 			const templateMedia = new PhotographerMedia(element, mediasData)
-			this.$photographerMedia.appendChild(templateMedia.createPhotographerMedia())
+			this.$photographerMedia.appendChild(templateMedia.createPhotographerMedia(index))
 		})
+
 		const totalLike = new TotalLikes(photographerData)
 		this.$main.appendChild(totalLike.templates())
 		const modalTemplate = new Modal(photographerData)
 		this.$main.appendChild(modalTemplate.createModalTemplate())
-		// Close modal
+
+		/* C'est une fonction qui ferme le modal lorsque vous cliquez sur le bouton. */
 		const btnCloseModal = document.querySelector('.closeModal')
 		const modal = document.querySelector('.contact_modal')
 		btnCloseModal.addEventListener('click', () => {
@@ -40,184 +49,34 @@ export class PhotographerPage {
 		})
 
 		const form = document.querySelector('#contact-form')
-		/**
-		 * @param   {event}  submit  form au submit
-		 * @param  e   e.preventDefault()
-		 *
-		 * @return  {array}  array avec les valeur des inputs
-		 */
+
+		/* Écoute de l'événement submit du formulaire. */
 		form.addEventListener('submit', (e) => {
 			e.preventDefault()
-			const firstname = document.querySelector('#firstname').value
-			const lastname = document.querySelector('#lastname').value
-			const email = document.querySelector('#email').value
+			const firstname = document.querySelector('#firstname')
+			const lastname = document.querySelector('#lastname')
+			const email = document.querySelector('#email')
 			const message = document.querySelector('#message').value
+			const lastNameRegex = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]{2,}[-]?([\w]+)?([-\d])?/.test(lastname.value)
+			const firstNameRegex = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]{2,}[-]?([\w]+)?([-\d])?/.test(firstname.value)
+			// eslint-disable-next-line no-useless-escape
+			const emailRegex = /^(\w[-\.]?)*@[\w]{1,}(\.\w{2,3}){1,2}$/.test(email.value)
 
 			this.array = []
-
-			this.array.push(firstname, lastname, email, message)
-
+			/* C'est une condition qui vérifie si le formulaire est valide. S'il est valide, il pousse les
+			valeurs du formulaire dans un tableau. S'il n'est pas valide, il affiche un message d'erreur. */
+			if (lastNameRegex === true && firstNameRegex === true && emailRegex === true && message !== '') {
+				this.array.push(firstname.value, lastname.value, email.value, message)
+				form.reset()
+			} else {
+				const errorMesage = document.createElement('p')
+				errorMesage.classList.add('error-message')
+				errorMesage.innerHTML = 'Une erreur est survenue veuiller verifier vos informations : <ul><li>Veuillez entrer un prénom comportant 2 caractères ou plus</li><li>Veuillez entrer un nom comportant 2 caractères ou plus</li><li>Une addresse email valide</li></ul>'
+				form.appendChild(errorMesage)
+				console.log('une erreur est survenue veuiller verifier vos imformations')
+			}
 			console.log(this.array)
 		})
-	}
-
-}
-
-class PhotographerHeader {
-
-	constructor (data) {
-		this._photographer = data[0]
-	}
-
-	createPhotographerHeader () {
-		const photographerSection = document.createElement('section')
-		photographerSection.classList.add('Photographer-flex')
-
-		photographerSection.innerHTML = ` <div>
-                                                                      <h1>${this._photographer.name}</h1>
-                                                                      <h2>${this._photographer.city}, ${this._photographer.country}</h2>
-                                                                      <p>${this._photographer.tagline}</p>
-                                                                 </div>
-                                                                 <div>
-                                                                      <button class='buttonModal'>Contactez-moi</button>
-                                                                 </div>
-                                                                 <div>
-                                                                      <img class='photographer-portrait' src="../../assets/photographers/${this._photographer.portrait}" alt="Portrait de ${this._photographer.name}" />
-                                                                 </div>       
-`
-		return photographerSection
-	}
-
-}
-
-class TotalLikes {
-
-	constructor (data) {
-		this.data = data
-		this.counter()
-	}
-
-	templates () {
-		const counter = this.createElement('section', 'class', 'static-counter')
-		counter.innerHTML = ` 
-		<div class='totalLikes'>
-			<p class='counter'>${this.sum}</p>
-			<i  class="fa-solid fa-heart"></i>
-		</div>
-		<p>${this.data[0].price}$ / jour</p>`
-
-		return counter
-	}
-
-	async counter () {
-		this.likes = document.querySelectorAll('.num-likes')
-		this.total = document.querySelector('.counter')
-		this.likeNumArray = Array.from(this.likes, e => parseFloat(e.innerText))
-		this.sum = 0
-		for (let i = 0; i < this.likeNumArray.length; i++) {
-			this.sum += this.likeNumArray[i]
-		}
-		this.total.innerHTML = this.sum
-
-		return this.sum
-	}
-
-	/**
-	 * Default create element
-	 *
-	 * @param   {string}  element
-	 * @param    {string} attr
-	 * @param   {string}  className
-	 *
-	 * @return  {HTMLElement} l'element cree
-	 */
-	createElement (element, attr, className) {
-		this.e = document.createElement(element)
-		this.e.setAttribute(attr, className)
-		return this.e
-	}
-}
-
-class PhotographerMedia {
-
-	constructor (data, allmedia) {
-		this.media = data
-		this.allmedia = allmedia
-		this.mediaImage = Object.prototype.hasOwnProperty.call(this.media, 'image')
-		this.mediaVideo = Object.prototype.hasOwnProperty.call(this.media, 'video')
-	}
-
-	createPhotographerMedia () {
-		const article = this.createElement('article', 'class', 'article')
-		const img = document.createElement('img')
-		const video = document.createElement('video')
-		const likecontent = this.createElement('div', 'class', 'like-content')
-		const title = this.createElement('h2', 'class', 'photo-title')
-		const button = this.createElement('button', 'class', 'likeBtn')
-
-		title.innerHTML = this.media.title
-
-		button.innerHTML = `<span class="num-likes">${this.media.likes}</span>
-		<span class="icon"><i  class="fa-regular fa-heart"></i></span>`
-
-		likecontent.appendChild(title)
-		likecontent.appendChild(button)
-
-		article.appendChild(likecontent)
-
-		if (this.mediaImage) {
-			img.setAttribute('src', ` ../../assets/medias/${this.media.image}`)
-			img.setAttribute('alt', `image ${this.media.title}`)
-			img.addEventListener('click', () => {
-				img.classList.add('active')
-				const lightbox = new LightboxMedia(this.media)
-
-				return lightbox.openLightbox()
-			})
-			article.appendChild(img)
-		} else if (this.mediaVideo) {
-			video.setAttribute('src', ` ../../assets/medias/${this.media.video}`)
-			video.setAttribute('alt', `video ${this.media.title}`)
-			article.appendChild(video)
-		}
-
-		let clicked = false
-
-		button.addEventListener('click', () => {
-			this.a = this.media.likes + 1
-			this.b = this.a - 1
-			if (!clicked) {
-				clicked = true
-				button.innerHTML = `<span class="num-likes">${this.a}</span>
-				<span class="icon"><i  class="fa-solid fa-heart"></i></span>`
-				new TotalLikes().counter()
-				return button
-			} else {
-				clicked = false
-				button.innerHTML = `<span class="num-likes">${this.b}</span>
-				<span class="icon"><i  class="fa-regular fa-heart"></i></span>`
-				new TotalLikes().counter()
-				return button
-			}
-		})
-
-		return article
-
-	}
-
-	/**
-	 * Default create element
-	 *
-	 * @param   {string}  element
-	 * @param    {string} attr
-	 * @param   {string}  className
-	 *
-	 * @return  {HTMLElement} l'element cree
-	 */
-	createElement (element, attr, className) {
-		this.e = document.createElement(element)
-		this.e.setAttribute(attr, className)
-		return this.e
 	}
 
 }

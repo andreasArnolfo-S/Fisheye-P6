@@ -1,12 +1,11 @@
-/* eslint-disable eqeqeq */
-/* eslint-disable padded-blocks */
-/* eslint-disable no-tabs */
-/* eslint-disable indent */
+/* eslint-disable padded-blocks *//* eslint-disable no-tabs *//* eslint-disable indent */
 
 import { HomePage } from './Vue/Home'
 import { PhotographerPage } from './Vue/Photographers'
 import '../css/style.scss'
 
+/* La classe App est la classe principale qui sera utilisée pour lancer la page d'accueil et la page du
+photographe. */
 class App {
 
      constructor () {
@@ -14,7 +13,7 @@ class App {
           this.photographerPage = new PhotographerPage()
      }
 
-     async lauchPage () {
+     lauchPage () {
           this.homePage.home()
           this.photographerPage.photographer()
      }

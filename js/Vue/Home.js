@@ -1,61 +1,52 @@
-/* eslint-disable eqeqeq */
-/* eslint-disable padded-blocks */
-/* eslint-disable no-tabs */
-/* eslint-disable indent */
-
+/* eslint-disable padded-blocks *//* eslint-disable no-tabs *//* eslint-disable indent */
 /**
  * @file Home est mon ficher qui gere la page d'accueil
  * @author Andreas Arnolfo
  * @module Home module
  */
-import { AllPhotographersApi } from '../api/api'
 
-/**
- * class Home page qui affiche tout les photographes
- */
+import { AllPhotographersApi } from '../api/api'
+import { PhotographerFactory } from '../components/PhotographerFactory'
+
+/* C'est une classe qui récupère les données d'une API et les affiche ensuite sur la page */
 export class HomePage {
 
      constructor () {
-          this.photographersApi = new AllPhotographersApi().getPhotographers()
+          this.photographersApi = new AllPhotographersApi()
           this.$photographerSection = document.querySelector('.photographer_section')
-
      }
 
+     /**
+      * La fonction home est une fonction asynchrone qui obtient les données de l'API, puis crée une
+      * nouvelle instance de la classe PhotographerCard pour chaque photographe dans les données et l'ajoute
+      * à la section photographe.
+      */
      async home () {
-
-          const photographersData = await this.photographersApi
-          this.photographers = photographersData
+          const photographersData = await this.photographersApi.getPhotographers()
 
           photographersData.forEach((photographer) => {
-               const template = new PhotographerCard(photographer)
-               this.$photographerSection.appendChild(template.createPhotographerCard())
+               const template = new PhotographerFactory(photographer)
+               this.$photographerSection.appendChild(template.homePage())
           })
 
-     }
+          /* Une fonction qui permet de naviguer dans les cartes avec les touches fléchées. */
+          this.articles = document.querySelectorAll('.links')
+          this.i = -1
+          document.addEventListener('keydown', (e) => {
+               if (e.key === 'ArrowRight') {
+                    this.i++
+               } else if (e.key === 'ArrowLeft') {
+                    this.i--
+               }
+               if (this.i > this.articles.length - 1) {
+                    this.i = 0
+               } else if (this.i < 0) {
+                    this.i = this.articles.length - 1
+               }
+               const currentArticle = this.i
+               this.articles[currentArticle].focus()
 
-}
-
-class PhotographerCard {
-     /**
-      * @param  photographer
-      *
-      * @return  {HTMLElement}
-      */
-     constructor (photographer) {
-          this.photographer = photographer
-     }
-
-     createPhotographerCard () {
-          const articles = document.createElement('article')
-          articles.setAttribute('tabindex', '-1')
-          articles.innerHTML = `<a  href='photographers.html?id=${this.photographer.id}'>
-                                             <img src="../../assets/photographers/${this.photographer.portrait}" alt="portrait de ${this.photographer.name}" />
-                                             <h2>${this.photographer.name}</h2>
-                                             <p class='city'><strong>${this.photographer.city}, ${this.photographer.country}</strong></p>
-                                             <p class='tag'><strong>${this.photographer.tagline}</strong></p>
-                                             <p class='price'>${this.photographer.price}€/jour</p>
-                                        </a>`
-          return articles
+          })
      }
 
 }
