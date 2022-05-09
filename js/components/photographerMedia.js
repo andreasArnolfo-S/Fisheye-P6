@@ -17,10 +17,8 @@ export class PhotographerMedia {
 		const img = document.createElement('img')
 		const video = document.createElement('video')
 		const likecontent = this.createElement('div', 'class', 'like-content')
-		const title = this.createElement('h2', 'class', 'photo-title')
+		const title = this.createElement('h2', 'class', 'photo-title', this.media.title)
 		const button = this.createElement('button', 'class', 'likeBtn')
-
-		title.innerHTML = this.media.title
 
 		button.innerHTML = `<span class="num-likes">${this.media.likes}</span>
 		<span class="icon"><i  class="fa-regular fa-heart"></i></span>`
@@ -49,7 +47,6 @@ export class PhotographerMedia {
 		}
 
 		let clicked = false
-
 		/* Ajout d'un écouteur d'événement au bouton. */
 		button.addEventListener('click', () => {
 			this.a = this.media.likes + 1
@@ -73,15 +70,20 @@ export class PhotographerMedia {
 	}
 
 	/**
-	 * Default create element
-	 * @param   {string}  element
-	 * @param    {string} attr
-	 * @param   {string}  className
-	 * @return  {HTMLElement} l'element cree
-	 */
-	createElement (element, attr, className) {
-		this.e = document.createElement(element)
-		this.e.setAttribute(attr, className)
-		return this.e
+	  * Il crée un élément, définit un attribut et renvoie l'élément.
+	  * @param el - l'élément que vous voulez créer
+	  * @param attr - l'attribut que vous souhaitez définir
+	  * @param attrValue - La valeur de l'attribut que vous souhaitez définir.
+	  * @param htmlelValue - La valeur de l'élément.
+	  * @returns l'élément qui a été créé.
+	  */
+	createElement (el, attr, attrValue, htmlelValue) {
+		const a = document.createElement(el)
+		a.setAttribute(attr, attrValue)
+		if (htmlelValue !== undefined) {
+			a.innerHTML = htmlelValue
+		}
+
+		return a
 	}
 }

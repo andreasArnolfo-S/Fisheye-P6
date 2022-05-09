@@ -7,6 +7,7 @@ import { TotalLikes } from '../components/TotalLike'
 // import { PhotographerHeader } from '../components/photographerHeader'
 import { PhotographerFactory } from '../components/PhotographerFactory'
 import { PhotographerMedia } from '../components/photographerMedia'
+import { TrieSysteme } from '../components/trieSysteme'
 import Modal from '../components/modal'
 
 export class PhotographerPage {
@@ -23,17 +24,19 @@ export class PhotographerPage {
 	}
 
 	async photographer () {
-		const mediasData = await this.mediasApi.getMedia(this.id)
 		const photographerData = await this.photographerApi.getPhotographer(this.id)
-
 		const templatedeux = new PhotographerFactory(photographerData[0])
 		this.$photographerHeader.appendChild(templatedeux.PhotographerPage())
-
+		const trie = new TrieSysteme()
+		this.$photographerMedia.appendChild(trie.trieSysteme())
+		this.mediasData = await this.trie()
+		console.log(this.mediasData)
 		/* C'est une boucle qui créera une nouvelle instance de PhotographerMedia pour chaque élément du
 		tableau. */
-		mediasData.forEach((element, index) => {
-			const templateMedia = new PhotographerMedia(element, mediasData)
-			this.$photographerMedia.appendChild(templateMedia.createPhotographerMedia(index))
+		this.mediasData.forEach((element, index) => {
+
+			this.templateMedia = new PhotographerMedia(element, this.mediasData)
+			this.$photographerMedia.appendChild(this.templateMedia.createPhotographerMedia(index))
 		})
 
 		const totalLike = new TotalLikes(photographerData)
@@ -77,6 +80,50 @@ export class PhotographerPage {
 			}
 			console.log(this.array)
 		})
+	}
+
+	async trie () {
+		this.mediasData = await this.mediasApi.getMedia(this.id)
+		const popular = document.querySelector('.popDrop')
+		const date = document.querySelector('.dateDrop')
+		const title = document.querySelector('.titleDrop')
+
+		this.reloading = sessionStorage.getItem('reloading')
+		this.likess = sessionStorage.getItem('sortByLike')
+		this.datess = sessionStorage.getItem('sortByDate')
+		this.titless = sessionStorage.getItem('sortByTitle')
+
+		popular.addEventListener('click', () => {
+			sessionStorage.setItem('reloading', 'true')
+			sessionStorage.setItem('sortByLike', 'true')
+			document.location.reload()
+		})
+		date.addEventListener('click', () => {
+			sessionStorage.setItem('reloading', 'true')
+			sessionStorage.setItem('sortByDate', 'true')
+			document.location.reload()
+		})
+		title.addEventListener('click', () => {
+			sessionStorage.setItem('reloading', 'true')
+			sessionStorage.setItem('sortByTitle', 'true')
+			document.location.reload()
+		})
+
+		if (this.reloading && this.likess) {
+			sessionStorage.removeItem('reloading')
+			sessionStorage.removeItem('sortByLike')
+			return this.mediasData.sort((a, b) => b.likes - a.likes)
+		} else if (this.reloading && this.datess) {
+			sessionStorage.removeItem('reloading')
+			sessionStorage.removeItem('sortByDate')
+			return this.mediasData.sort((o) => { return new Date(o.date) })
+		} else if (this.reloading && this.titless) {
+			sessionStorage.removeItem('reloading')
+			sessionStorage.removeItem('sortByTitle')
+			return this.mediasData.sort((a, b) => a.title.localeCompare(b.title))
+		}
+
+		return this.mediasData
 	}
 
 }
