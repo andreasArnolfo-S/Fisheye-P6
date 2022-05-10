@@ -10,7 +10,7 @@ export class PhotographerFactory {
           this.PHtagline = this.createElement('p', 'class', 'ph_tagline', ` ${data.tagline}`)
           this.PHportrait = this.createElement('img', 'src', `../../assets/photographers/${data.portrait}`)
           this.PHportrait.setAttribute('class', 'photographer-portrait')
-          this.PHprice = this.createElement('p', 'class', 'ph_price', ` ${data.price}`)
+          this.PHprice = this.createElement('p', 'class', 'ph_price', ` ${data.price}$/jour`)
           this.link = this.createElement('a', 'href', `photographers.html?id=${data.id}`)
           this.link.setAttribute('class', 'links')
      }
@@ -71,7 +71,6 @@ export class PhotographerFactory {
           if (htmlelValue !== undefined) {
                a.innerHTML = htmlelValue
           }
-
           return a
      }
 

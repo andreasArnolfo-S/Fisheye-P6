@@ -4,7 +4,6 @@
 /* eslint-disable indent */
 import { PhotographerApi, MediaApi } from '../api/api'
 import { TotalLikes } from '../components/TotalLike'
-// import { PhotographerHeader } from '../components/photographerHeader'
 import { PhotographerFactory } from '../components/PhotographerFactory'
 import { PhotographerMedia } from '../components/photographerMedia'
 import { TrieSysteme } from '../components/trieSysteme'
@@ -34,7 +33,6 @@ export class PhotographerPage {
 		/* C'est une boucle qui créera une nouvelle instance de PhotographerMedia pour chaque élément du
 		tableau. */
 		this.mediasData.forEach((element, index) => {
-
 			this.templateMedia = new PhotographerMedia(element, this.mediasData)
 			this.$photographerMedia.appendChild(this.templateMedia.createPhotographerMedia(index))
 		})
@@ -82,6 +80,10 @@ export class PhotographerPage {
 		})
 	}
 
+	/**
+	 * trier les données par Likes, date ou titre, puis de recharger la page
+	 * @returns la valeur de la variable mediasData.
+	 */
 	async trie () {
 		this.mediasData = await this.mediasApi.getMedia(this.id)
 		const popular = document.querySelector('.popDrop')
