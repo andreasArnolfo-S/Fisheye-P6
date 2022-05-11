@@ -1,6 +1,7 @@
 /* eslint-disable padded-blocks */
 /* eslint-disable no-tabs */
 /* eslint-disable indent */
+import { CreateElement } from './CreateElement'
 export class Like {
 
 	constructor (data) {
@@ -15,11 +16,11 @@ export class Like {
 	 * @returns L'élément bouton
 	 */
 	manage () {
-		this.heart = document.createElement('button')
-		this.heart.setAttribute('type', 'button')
-		this.heart.classList.add('likeBtn')
 		const template = new LikeTemplate(this.data)
-		this.heart.innerHTML = template.createLikeTemplates()
+		this.heart = CreateElement('button', {
+			class: 'likBtn',
+			innerHtml: template.createLikeTemplates()
+		})
 
 		let clicked = false
 		this.heart.addEventListener('click', () => {

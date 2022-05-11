@@ -8,15 +8,22 @@ import '../css/style.scss'
 photographe. */
 class App {
 
-     constructor () {
-          this.homePage = new HomePage()
-          this.photographerPage = new PhotographerPage()
-     }
+	constructor () {
+		this.homePage = new HomePage()
+		this.photographerPage = new PhotographerPage()
 
-     lauchPage () {
-          this.homePage.home()
-          this.photographerPage.photographer()
-     }
+	}
+
+	lauchPage () {
+		const url = window.location.pathname
+
+		if (url === '/index.html' || url === '/') {
+			this.homePage.home()
+		} else if (url === '/photographers.html') {
+			this.photographerPage.photographer()
+		}
+
+	}
 
 }
 

@@ -1,18 +1,52 @@
 /* eslint-disable padded-blocks */
 /* eslint-disable indent */
 /* eslint-disable no-tabs */
-
+import { CreateElement } from './CreateElement'
 export class PhotographerFactory {
-
      constructor (data) {
-          this.PHname = this.createElement('h1', 'class', 'ph_name', ` ${data.name}`)
-          this.PHcity = this.createElement('h2', 'class', 'ph_city', ` ${data.city + ', ' + data.country}`)
-          this.PHtagline = this.createElement('p', 'class', 'ph_tagline', ` ${data.tagline}`)
-          this.PHportrait = this.createElement('img', 'src', `../../assets/photographers/${data.portrait}`)
-          this.PHportrait.setAttribute('class', 'photographer-portrait')
-          this.PHprice = this.createElement('p', 'class', 'ph_price', ` ${data.price}$/jour`)
-          this.link = this.createElement('a', 'href', `photographers.html?id=${data.id}`)
-          this.link.setAttribute('class', 'links')
+          this.PHname = CreateElement('h1', {
+               class: 'ph_name',
+               innerHtml: ` ${data.name}`
+          })
+
+          this.PHcity = CreateElement('h2', {
+               class: 'ph_city',
+               innerHtml: ` ${data.city + ', ' + data.country}`
+          })
+
+          this.PHtagline = CreateElement('p', {
+               class: 'ph_tagline',
+               innerHtml: ` ${data.tagline}`
+          })
+
+          this.PHportrait = CreateElement('img', {
+               src: `../../assets/photographers/${data.portrait}`,
+               class: 'photographer-portrait'
+          })
+
+          this.PHprice = CreateElement('p', {
+               class: 'ph_price',
+               innerHtml: ` ${data.price}$/jour`
+          })
+
+          this.link = CreateElement('a', {
+               href: `photographers.html?id=${data.id}`,
+               class: 'links'
+          })
+     }
+
+     /**
+      * @param type - Le type de page que vous souhaitez créer.
+      * @returns La valeur de retour de la fonction est la valeur de retour de la dernière instruction de la
+      * fonction.
+      */
+     factory (type) {
+          switch (type) {
+               case 'home':
+                    return this.homePage()
+               case 'photographer':
+                    return this.PhotographerPage()
+          }
      }
 
      /**
@@ -21,7 +55,9 @@ export class PhotographerFactory {
       * @returns L'élément article avec tous les éléments enfants.
       */
      homePage () {
-          const articles = this.createElement('article', 'class', 'photographerCard')
+          const articles = CreateElement('article', {
+               class: 'photographerCard'
+          })
           articles.appendChild(this.link)
           this.link.appendChild(this.PHportrait)
           this.link.appendChild(this.PHname)
@@ -36,11 +72,22 @@ export class PhotographerFactory {
       * @returns L'élément section.
       */
      PhotographerPage () {
-          const section = this.createElement('section', 'class', 'Photographer-flex')
-          const divText = this.createElement('div', 'class', 'div-txt')
-          const divButton = this.createElement('div', 'class', 'divBtn')
-          const divPortrait = this.createElement('div', 'class', 'div-portrait')
-          const btnModal = this.createElement('button', 'class', 'buttonModal', 'openModal')
+          const section = CreateElement('section', {
+               class: 'Photographer-flex'
+          })
+          const divText = CreateElement('div', {
+               class: 'div-txt'
+          })
+          const divButton = CreateElement('div', {
+               class: 'divBtn'
+          })
+          const divPortrait = CreateElement('div', {
+               class: 'div-portrait'
+          })
+          const btnModal = CreateElement('button', {
+               class: 'buttonModal',
+               innerHtml: 'openModal'
+          })
 
           divText.appendChild(this.PHname)
           divText.appendChild(this.PHcity)
@@ -55,23 +102,6 @@ export class PhotographerFactory {
           section.appendChild(divPortrait)
 
           return section
-     }
-
-     /**
-      * Il crée un élément, définit un attribut et renvoie l'élément.
-      * @param el - l'élément que vous voulez créer
-      * @param attr - l'attribut que vous souhaitez définir
-      * @param attrValue - La valeur de l'attribut que vous souhaitez définir.
-      * @param htmlelValue - La valeur de l'élément.
-      * @returns l'élément qui a été créé.
-      */
-     createElement (el, attr, attrValue, htmlelValue) {
-          const a = document.createElement(el)
-          a.setAttribute(attr, attrValue)
-          if (htmlelValue !== undefined) {
-               a.innerHTML = htmlelValue
-          }
-          return a
      }
 
 }

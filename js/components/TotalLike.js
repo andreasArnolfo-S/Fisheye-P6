@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 /* eslint-disable no-tabs */
-
+import { CreateElement } from './CreateElement'
 export class TotalLikes {
      constructor (data) {
           this.data = data
@@ -13,13 +13,15 @@ export class TotalLikes {
       * @returns the counter variable.
       */
      templates () {
-          const counter = this.createElement('section', 'class', 'static-counter')
-          counter.innerHTML = ` 
-		<div class='totalLikes'>
-			<p class='counter'>${this.sum}</p>
-			<i  class="fa-solid fa-heart"></i>
-		</div>
-		<p>${this.data[0].price}$ / jour</p>`
+          const counter = CreateElement('section', {
+               class: 'static-counter',
+               innerHTML: ` 
+               <div class='totalLikes'>
+                    <p class='counter'>${this.sum}</p>
+                    <i  class="fa-solid fa-heart"></i>
+               </div>
+               <p>${this.data[0].price}$ / jour</p>`
+          })
 
           return counter
      }
@@ -39,18 +41,5 @@ export class TotalLikes {
           this.total.innerHTML = this.sum
 
           return this.sum
-     }
-
-     /**
-      * This function creates an element, sets an attribute, and returns the element.
-      * @param element - The element you want to create.
-      * @param attr - the attribute you want to set
-      * @param className - The class name of the element you want to create.
-      * @returns The element that was created.
-      */
-     createElement (element, attr, className) {
-          this.e = document.createElement(element)
-          this.e.setAttribute(attr, className)
-          return this.e
      }
 }

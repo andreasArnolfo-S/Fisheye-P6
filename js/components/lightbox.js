@@ -1,6 +1,8 @@
 /* eslint-disable padded-blocks */
 /* eslint-disable no-tabs */
 /* eslint-disable indent */
+import { CreateElement } from './CreateElement'
+
 export class LightboxMedia {
 
 	constructor (data) {
@@ -10,26 +12,48 @@ export class LightboxMedia {
 
 	async openLightbox (n) {
 		const mediasData = await this.data
-		this._lightbox = this.createElement('div', 'class', 'lightbox')
-		this._close = this.createElement('button', 'class', 'close', 'x')
-		this._carousel = this.createElement('div', 'class', 'carousel')
-		this._buttonNext = this.createElement('button', 'class', 'next', '>')
-		this._buttonPrev = this.createElement('button', 'class', 'prev', '<')
+		this._lightbox = CreateElement('div', {
+			class: 'lightbox'
+		})
+		this._close = CreateElement('button', {
+			class: 'close',
+			innerHtml: 'X'
+		})
+		this._carousel = CreateElement('div', {
+			class: 'carousel'
+		})
+		this._buttonNext = CreateElement('button', {
+			class: 'next',
+			innerHtml: '>'
+		})
+		this._buttonPrev = CreateElement('button', {
+			class: 'prev',
+			innerHtml: '<'
+		})
 
 		/* Créer un div avec les diapositives de la classe et l'ajouter au carrousel. */
 		mediasData.forEach((el, index) => {
 			this.mediaImage = Object.prototype.hasOwnProperty.call(el, 'image')
 			this.mediaVideo = Object.prototype.hasOwnProperty.call(el, 'video')
-			this._slides = this.createElement('div', 'class', 'slides')
-			this._slides.setAttribute('slide-index', index)
+			this._slides = CreateElement('div', {
+				class: 'slides',
+				slideIndex: index
+			})
+
 			if (this.mediaImage) {
-				this._img = this.createElement('img', 'src', `../../assets/medias/${el.image}`)
+				this._img = CreateElement('img', {
+					src: `../../assets/medias/${el.image}`
+				})
 				this._slides.appendChild(this._img)
 			} else if (this.mediaVideo) {
-				this._video = this.createElement('video', 'src', ` ../../assets/medias/${el.video}`)
+				this._video = CreateElement('video', {
+					src: ` ../../assets/medias/${el.video}`
+				})
 				this._slides.appendChild(this._video)
 			}
+
 			this._carousel.appendChild(this._slides)
+
 		})
 
 		this._carousel.appendChild(this._buttonNext)
@@ -87,22 +111,5 @@ export class LightboxMedia {
 		}
 		this.slide[this._slideIndex - 1].style.display = 'block'
 	}
-
-     /**
-      * Il crée un élément, définit un attribut et renvoie l'élément.
-      * @param el - l'élément que vous voulez créer
-      * @param attr - l'attribut que vous souhaitez définir
-      * @param attrValue - La valeur de l'attribut que vous souhaitez définir.
-      * @param htmlelValue - La valeur de l'élément.
-      * @returns l'élément qui a été créé.
-      */
-	createElement (el, attr, attrValue, htmlelValue) {
-          const a = document.createElement(el)
-          a.setAttribute(attr, attrValue)
-          if (htmlelValue !== undefined) {
-               a.innerHTML = htmlelValue
-          }
-          return a
-     }
 
 }

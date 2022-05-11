@@ -13,7 +13,7 @@ export class HomePage {
 
      constructor () {
           this.photographersApi = new AllPhotographersApi()
-          this.$photographerSection = document.querySelector('.photographer_section')
+          this.photographerSection = document.querySelector('.photographer_section')
      }
 
      /**
@@ -26,7 +26,7 @@ export class HomePage {
 
           photographersData.forEach((photographer) => {
                const template = new PhotographerFactory(photographer)
-               this.$photographerSection.appendChild(template.homePage())
+               this.photographerSection.appendChild(template.factory('home'))
           })
 
           /* Une fonction qui permet de naviguer dans les cartes avec les touches fléchées. */
