@@ -25,10 +25,14 @@ export class HomePage {
      async home () {
           const photographersData = await this.photographersApi.getPhotographers()
 
-          photographersData.forEach((photographer) => {
+          for (const photographer of photographersData) {
                const template = new PhotographerFactory(photographer)
                this.photographerSection.appendChild(template.factory('home'))
-          })
+          }
+          // photographersData.forEach((photographer) => {
+          //      const template = new PhotographerFactory(photographer)
+          //      this.photographerSection.appendChild(template.factory('home'))
+          // })
 
           this.navigate()
      }
