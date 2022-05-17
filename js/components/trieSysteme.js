@@ -2,6 +2,8 @@
 /* eslint-disable indent */
 /* eslint-disable no-tabs */
 import { CreateElement } from './CreateElement'
+
+/* Il crée un menu déroulant avec trois options. */
 export class TrieSysteme {
 
      trieSysteme () {
@@ -10,7 +12,7 @@ export class TrieSysteme {
           })
           const dropBtn = CreateElement('button', {
                class: 'dropDownBtn',
-               innerHtml: 'triez par'
+               innerHtml: 'Trier par'
           })
           const dropCtn = CreateElement('div', {
                class: 'dropdown-content'

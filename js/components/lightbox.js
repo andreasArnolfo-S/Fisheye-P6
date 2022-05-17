@@ -35,22 +35,28 @@ export class LightboxMedia {
 		mediasData.forEach((el, index) => {
 			this.mediaImage = Object.prototype.hasOwnProperty.call(el, 'image')
 			this.mediaVideo = Object.prototype.hasOwnProperty.call(el, 'video')
+			this.title = CreateElement('h1', {
+				class: 'title',
+				innerHtml: `${el.title}`
+			})
 			this._slides = CreateElement('div', {
 				class: 'slides',
 				slideIndex: index
 			})
-
 			if (this.mediaImage) {
 				this._img = CreateElement('img', {
-					src: `../../assets/medias/${el.image}`
+					src: `../../assets/medias/${el.image}`,
+					alt: `${el.title}`
 				})
 				this._slides.appendChild(this._img)
 			} else if (this.mediaVideo) {
 				this._video = CreateElement('video', {
-					src: ` ../../assets/medias/${el.video}`
+					src: ` ../../assets/medias/${el.video}`,
+					alt: `${el.title}`
 				})
 				this._slides.appendChild(this._video)
 			}
+			this._slides.appendChild(this.title)
 
 			this._carousel.appendChild(this._slides)
 
@@ -62,7 +68,6 @@ export class LightboxMedia {
 		this._lightbox.appendChild(this._close)
 		this._lightbox.appendChild(this._carousel)
 		this.body.appendChild(this._lightbox)
-		console.log(this._lightbox)
 
 		/* Écouter un événement de clic sur le bouton de fermeture, puis supprime la lightbox du corps. */
 		this._close.addEventListener('click', () => {

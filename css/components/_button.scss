@@ -14,9 +14,20 @@
 .trieContainer {
 	width: 100%;
 	position: relative;
+	display: flex;
+	margin: 0 100px;
 
 	.dropDownBtn {
-		margin: 0 100px;
+		font-size: 20px;
+		font-weight: bold;
+		color: white;
+		padding: 11px;
+		width: 170px;
+		height: 70px;
+		border: none;
+		background-color: #901c1c;
+		border-radius: 5px;
+		cursor: pointer;
 	}
 	.dropdown-content {
 		display: none;
@@ -26,7 +37,7 @@
 		overflow: auto;
 		box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 		z-index: 1;
-    margin: 0 100px;
+		margin: 0 100px;
 		&.show {
 			display: block;
 		}
@@ -35,7 +46,11 @@
 			padding: 12px 16px;
 			text-decoration: none;
 			display: block;
-      cursor: pointer;
+			cursor: pointer;
+			&:hover {
+				background-color: #901c1c;
+				color: #f1f1f1;
+			}
 		}
 	}
 }

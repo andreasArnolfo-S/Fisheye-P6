@@ -8,9 +8,7 @@ export class TotalLikes {
      }
 
      /**
-      * It creates a section element with a class of static-counter, then it adds the sum of the likes and
-      * the price of the first item in the data array to the section element.
-      * @returns the counter variable.
+      * @returns la variable compteur.
       */
      templates () {
           const counter = CreateElement('section', {
@@ -27,8 +25,9 @@ export class TotalLikes {
      }
 
      /**
-      * It takes the number of likes from each post and adds them together to get the total number of likes.
-      * @returns The sum of the likes.
+      * Il prend le nombre de likes de chaque publication et les additionne pour obtenir le nombre total de
+      * likes.
+      * @returns La somme des likes.
       */
      async counter () {
           this.likes = document.querySelectorAll('.num-likes')

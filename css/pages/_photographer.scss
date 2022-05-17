@@ -64,24 +64,35 @@
 	border-radius: 5px;
 	cursor: pointer;
 	margin-left: 25%;
+	transition: 0.6s;
 	@include c.tablette-only {
 		margin: auto;
 	}
 	&:hover {
 		background-color: #d3573c;
+		color: black;
 	}
 }
 .media-content {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	article {
+	.article:focus {
+		border-radius: 60px 0px 60px 0px;
+		border: none;
+		width: 450px;
+		transition: 0.6s;
+		img {
+			border-radius: 60px 0px 60px 0px;
+		}
+	}
+	.article {
 		margin: 25px;
 		width: 28%;
 		height: 350px;
 		cursor: pointer;
 		position: relative;
-
+		
 		@include c.tablette-only {
 			width: 40%;
 		}

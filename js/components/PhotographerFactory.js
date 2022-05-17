@@ -21,7 +21,8 @@ export class PhotographerFactory {
 
           this.PHportrait = CreateElement('img', {
                src: `../../assets/photographers/${data.portrait}`,
-               class: 'photographer-portrait'
+               class: 'photographer-portrait',
+               alt: ` portrait de ${data.name}`
           })
 
           this.PHprice = CreateElement('p', {
@@ -86,13 +87,12 @@ export class PhotographerFactory {
           })
           const btnModal = CreateElement('button', {
                class: 'buttonModal',
-               innerHtml: 'openModal'
+               innerHtml: 'Contactez-moi'
           })
 
           divText.appendChild(this.PHname)
           divText.appendChild(this.PHcity)
           divText.appendChild(this.PHtagline)
-          console.log(this.PHname)
           divButton.appendChild(btnModal)
 
           divPortrait.appendChild(this.PHportrait)

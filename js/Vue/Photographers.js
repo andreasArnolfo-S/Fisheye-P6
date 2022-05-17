@@ -12,7 +12,7 @@ import Modal from '../components/modal'
 export class PhotographerPage {
 
 	constructor () {
-          /* Il obtient l'identifiant de l'url. */
+		/* Il obtient l'identifiant de l'url. */
 		const params = (new URL(document.location)).searchParams
 		this.id = params.get('id')
 		this.mediasApi = new MediaApi()
@@ -29,9 +29,6 @@ export class PhotographerPage {
 		const trie = new TrieSysteme()
 		this.$photographerMedia.appendChild(trie.trieSysteme())
 		this.mediasData = await this.trie()
-		console.log(this.mediasData)
-		/* C'est une boucle qui créera une nouvelle instance de PhotographerMedia pour chaque élément du
-		tableau. */
 
 		const totalLike = new TotalLikes(photographerData)
 		this.$main.appendChild(totalLike.templates())
@@ -41,10 +38,20 @@ export class PhotographerPage {
 		/* C'est une fonction qui ferme le modal lorsque vous cliquez sur le bouton. */
 		const btnCloseModal = document.querySelector('.closeModal')
 		const modal = document.querySelector('.contact_modal')
+
 		btnCloseModal.addEventListener('click', () => {
 			modal.style.display = 'none'
 		})
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape') {
+				modal.style.display = 'none'
+			}
+		})
+		this.form()
+		this.navigate()
+	}
 
+	form () {
 		const form = document.querySelector('#contact-form')
 
 		/* Écoute de l'événement submit du formulaire. */
@@ -82,6 +89,7 @@ export class PhotographerPage {
 	 */
 	async trie () {
 		this.mediasData = await this.mediasApi.getMedia(this.id)
+
 		const popular = document.querySelector('.popDrop')
 		const date = document.querySelector('.dateDrop')
 		const title = document.querySelector('.titleDrop')
@@ -106,18 +114,58 @@ export class PhotographerPage {
 		return this.mediasData
 	}
 
+	/**
+	 * Il supprime tous les articles du DOM.
+	 */
 	replaceArticle () {
-		const article = document.querySelectorAll('article')
+		const article = document.querySelectorAll('.article')
 		article.forEach((e) => {
 			this.$photographerMedia.removeChild(e)
 		})
 	}
 
+	/**
+	 * Il parcourt le tableau d'objets et crée une nouvelle instance de la classe PhotographerMedia pour
+	 * chaque objet du tableau.
+	 * La classe PhotographerMedia est une classe qui crée un modèle pour chaque objet du tableau.
+	 * Le modèle est ensuite ajouté au DOM.
+	 * Le modèle est créé par la fonction createPhotographerMedia().
+	 */
 	displayMedia () {
 		this.mediasData.forEach((element, index) => {
 			this.templateMedia = new PhotographerMedia(element, this.mediasData)
 			this.$photographerMedia.appendChild(this.templateMedia.createPhotographerMedia(index))
 		})
+	}
+
+	navigate () {
+		this.articles = document.querySelectorAll('.article')
+          this.i = -1
+          document.addEventListener('keydown', (e) => {
+			if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft' && e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return
+               switch (e.key) {
+                    case 'ArrowRight':
+                         this.i++
+                         break
+                    case 'ArrowLeft':
+                         this.i--
+                         break
+                    case 'ArrowDown':
+                         this.i += 3
+                         break
+                    case 'ArrowUp':
+                         this.i -= 3
+                         break
+               }
+
+               if (this.i > this.articles.length - 1) {
+                    this.i = 0
+               } else if (this.i < 0) {
+                    this.i = this.articles.length - 1
+               }
+               const currentArticle = this.i
+               return this.articles[currentArticle].focus()
+          })
 	}
 
 }
