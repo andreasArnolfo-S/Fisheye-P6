@@ -1,15 +1,10 @@
-/* eslint-disable indent */
-/* eslint-disable no-tabs */
-import { CreateElement } from './CreateElement'
+import { CreateElement } from '../utils/CreateElement'
 export class TotalLikes {
      constructor (data) {
           this.data = data
           this.counter()
      }
 
-     /**
-      * @returns la variable compteur.
-      */
      templates () {
           const counter = CreateElement('section', {
                class: 'static-counter',

@@ -1,7 +1,4 @@
-/* eslint-disable padded-blocks */
-/* eslint-disable no-tabs */
-/* eslint-disable indent */
-import { CreateElement } from './CreateElement'
+import { CreateElement } from '../utils/CreateElement'
 
 export class LightboxMedia {
 
@@ -19,6 +16,7 @@ export class LightboxMedia {
 			class: 'close',
 			innerHtml: 'X'
 		})
+		this._close.setAttribute('aria-label', 'Fermer la lightbox')
 		this._carousel = CreateElement('div', {
 			class: 'carousel'
 		})
@@ -61,12 +59,9 @@ export class LightboxMedia {
 			this._carousel.appendChild(this._slides)
 
 		})
-
-		this._carousel.appendChild(this._buttonNext)
-		this._carousel.appendChild(this._buttonPrev)
+		this._carousel.append(this._buttonNext, this._buttonPrev)
 		this._lightbox.style.display = 'block'
-		this._lightbox.appendChild(this._close)
-		this._lightbox.appendChild(this._carousel)
+		this._lightbox.append(this._close, this._carousel)
 		this.body.appendChild(this._lightbox)
 
 		/* Écouter un événement de clic sur le bouton de fermeture, puis supprime la lightbox du corps. */
@@ -87,12 +82,18 @@ export class LightboxMedia {
 		appellera la fonction showSlides avec le slideIndex - 1. Si c'est Escape, il supprimera la lightbox
 		du corps. */
 		document.addEventListener('keydown', (e) => {
-			if (e.key === 'ArrowRight') {
-				this.showSlides(this._slideIndex += 1)
-			} else if (e.key === 'ArrowLeft') {
-				this.showSlides(this._slideIndex -= 1)
-			} else if (e.key === 'Escape') {
-				this.body.removeChild(this._lightbox)
+			switch (e.key) {
+				case 'ArrowRight':
+					this.showSlides(this._slideIndex += 1)
+					break
+				case 'ArrowLeft':
+					this.showSlides(this._slideIndex -= 1)
+					break
+				case 'Escape':
+					this.body.removeChild(this._lightbox)
+					break
+				default:
+					break
 			}
 		})
 		return this._lightbox

@@ -1,13 +1,4 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable padded-blocks */
-/* eslint-disable no-tabs */
-/* eslint-disable indent */
-
-/**
- * @file Api est mon ficher qui gere les datas
- * @author Andreas Arnolfo
- * @module api module
- */
 
 class Api {
 

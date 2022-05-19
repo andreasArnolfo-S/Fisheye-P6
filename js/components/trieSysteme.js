@@ -1,7 +1,4 @@
-/* eslint-disable padded-blocks */
-/* eslint-disable indent */
-/* eslint-disable no-tabs */
-import { CreateElement } from './CreateElement'
+import { CreateElement } from '../utils/CreateElement'
 
 /* Il crée un menu déroulant avec trois options. */
 export class TrieSysteme {
@@ -30,11 +27,8 @@ export class TrieSysteme {
                innerHtml: 'Date'
           })
 
-          content.appendChild(dropBtn)
-          dropCtn.appendChild(alpha)
-          dropCtn.appendChild(popular)
-          dropCtn.appendChild(date)
-          content.appendChild(dropCtn)
+          dropCtn.append(alpha, popular, date)
+          content.append(dropBtn, dropCtn)
 
           dropBtn.addEventListener('click', () => {
                dropCtn.classList.toggle('show')

@@ -14,5 +14,8 @@ module.exports = {
     '**/dist/*.js'
   ],
   rules: {
+    indent: 'off',
+    'no-tabs': 'off',
+    'padded-blocks': 'off'
   }
 }
