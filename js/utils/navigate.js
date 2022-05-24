@@ -1,9 +1,10 @@
 export class NavigateHome {
      navigate () {
           /* Une fonction qui permet de naviguer dans les cartes avec les touches fléchées. */
-          this.articles = document.querySelectorAll('.links')
+          this.link = document.querySelectorAll('.links')
           this.i = -1
           document.addEventListener('keydown', (e) => {
+               if (e.key === 'Tab') return
                if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft' && e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return
                e.preventDefault()
                switch (e.key) {
@@ -21,13 +22,13 @@ export class NavigateHome {
                          break
                }
 
-               if (this.i > this.articles.length - 1) {
+               if (this.i > this.link.length - 1) {
                     this.i = 0
                } else if (this.i < 0) {
-                    this.i = this.articles.length - 1
+                    this.i = this.link.length - 1
                }
                const currentArticle = this.i
-               return this.articles[currentArticle].focus()
+               return this.link[currentArticle].focus()
           })
      }
 }

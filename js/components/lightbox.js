@@ -14,19 +14,19 @@ export class LightboxMedia {
 		})
 		this._close = CreateElement('button', {
 			class: 'close',
-			innerHtml: 'X'
+			innerHtml: '<i class="fa-solid fa-rectangle-xmark"></i>'
 		})
 		this._close.setAttribute('aria-label', 'Fermer la lightbox')
 		this._carousel = CreateElement('div', {
 			class: 'carousel'
 		})
-		this._buttonNext = CreateElement('button', {
+		this._buttonNext = CreateElement('div', {
 			class: 'next',
-			innerHtml: '>'
+			innerHtml: '<i class="fa-solid fa-angle-right"></i>'
 		})
-		this._buttonPrev = CreateElement('button', {
+		this._buttonPrev = CreateElement('div', {
 			class: 'prev',
-			innerHtml: '<'
+			innerHtml: '<i class="fa-solid fa-angle-left"></i>'
 		})
 
 		/* Créer un div avec les diapositives de la classe et l'ajouter au carrousel. */

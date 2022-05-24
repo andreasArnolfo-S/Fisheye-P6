@@ -1,4 +1,4 @@
-import { CreateElement } from './../utils/createElement'
+import { CreateElement } from '../utils/CreateElement'
 
 export class PhotographeFactory {
 
@@ -13,33 +13,39 @@ export class PhotographeFactory {
 
           this.PHname = CreateElement('h1', {
                class: 'ph_name',
-               innerHtml: `${this.name}`
+               innerHtml: `${this.name}`,
+               tabindex: '0',
+               ariaLabel: `nom : ${this.name}`
           })
-          this.PHname.setAttribute('tabindex', '0')
           this.PHcity = CreateElement('h2', {
                class: 'ph_city',
-               innerHtml: ` ${this.city + ', ' + this.country}`
+               innerHtml: ` ${this.city + ', ' + this.country}`,
+               tabindex: '0',
+               ariaLabel: `${this.name} vie a ${this.city} en ${this.country}`
           })
-          this.PHcity.setAttribute('tabindex', '0')
           this.PHtagline = CreateElement('p', {
                class: 'ph_tagline',
-               innerHtml: ` ${this.tagline}`
+               innerHtml: ` ${this.tagline}`,
+               tabindex: '0',
+               ariaLabel: ` le slogan de ${this.name} est ${this.tagline} `
           })
-          this.PHtagline.setAttribute('tabindex', '0')
           this.PHportrait = CreateElement('img', {
                src: `../../assets/photographers/${this.portrait}`,
                class: 'photographer-portrait',
-               alt: ` portrait de ${this.name}`
+               alt: ` portrait de ${this.name}`,
+               tabindex: '0',
+               ariaLabel: `portrait de ${this.name}`
           })
-          this.PHportrait.setAttribute('tabindex', '0')
           this.PHprice = CreateElement('p', {
                class: 'ph_price',
-               innerHtml: ` ${this.price}$/jour`
+               innerHtml: ` ${this.price}$/jour`,
+               tabindex: '0',
+               ariaLabel: `${this.name} facture ${this.price}$ par jour`
           })
-          this.PHprice.setAttribute('tabindex', '0')
           this.link = CreateElement('a', {
                href: `photographers.html?id=${this.id}`,
-               class: 'links'
+               class: 'links',
+               ariaLabel: `renvoie a la page personnel de ${this.name}`
           })
      }
 

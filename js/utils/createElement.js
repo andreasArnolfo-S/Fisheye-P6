@@ -10,12 +10,16 @@
  export function CreateElement (type, attributes) {
      const element = document.createElement(type)
 
-     if (attributes) {
+     if (attributes !== undefined || attributes !== null) {
           for (const key in attributes) {
                if (key === 'class') {
                     element.classList.add.call(element.classList, attributes[key])
                } else if (key === 'innerHtml') {
                     element.innerHTML = attributes[key]
+               } else if (key === 'tabindex') {
+                    element.setAttribute('tabindex', attributes[key])
+               } else if (key === 'ariaLabel') {
+                    element.setAttribute('aria-label', attributes[key])
                } else {
                     element[key] = attributes[key]
                }

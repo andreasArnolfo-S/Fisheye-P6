@@ -1,4 +1,4 @@
-import { CreateElement } from './../utils/createElement'
+import { CreateElement } from './../utils/CreateElement'
 import { LightboxMedia } from './lightbox'
 
 export class VideoTemplate {

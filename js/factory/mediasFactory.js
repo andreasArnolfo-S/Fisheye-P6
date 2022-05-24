@@ -18,13 +18,15 @@ export class PhotographerMedia {
 		})
 		const title = CreateElement('h2', {
 			class: 'photo-title',
-			innerHTML: this.media.title
+			innerHTML: this.media.title,
+			ariaLabel: `le titre de cette photo est ${this.media.title}`
 		})
           title.setAttribute('tabindex', '0')
 		this.button = CreateElement('button', {
 			class: 'likeBtn',
-			innerHTML: `<span class="num-likes">${this.media.likes}</span>
-			<span class="icon"><i  class="fa-regular fa-heart"></i></span>`
+			innerHTML: `<span aria-label='il y'a ${this.media.likes} sur cette photo' class="num-likes">${this.media.likes}</span>
+			<span class="icon"><i  class="fa-regular fa-heart"></i></span>`,
+			ariaLabel: `cette photo a actuellement ${this.media.likes} like ! en appuyant sur entré vous ajouterz un like`
 		})
 
 		likecontent.appendChild(title)
@@ -35,11 +37,9 @@ export class PhotographerMedia {
 		this.mediaVideo = Object.prototype.hasOwnProperty.call(this.media, 'video')
 
 		if (this.mediaImage) {
-			const image = new MediaBuild(this.media, this.allmedia)
-			article.appendChild(image.factory('image', index))
+			article.appendChild(new MediaBuild(this.media, this.allmedia).factory('image', index))
 		} else if (this.mediaVideo) {
-			const video = new MediaBuild(this.media, this.allmedia)
-			article.appendChild(video.factory('video', index))
+			article.appendChild(new MediaBuild(this.media, this.allmedia).factory('video', index))
 		}
 		this.like()
 		return article
@@ -53,13 +53,13 @@ export class PhotographerMedia {
                this.b = this.a - 1
                if (!clicked) {
                     clicked = true
-                    this.button.innerHTML = `<span class="num-likes">${this.a}</span>
+                    this.button.innerHTML = `<span aria-label='il y'a ${this.a} sur cette photo' class="num-likes">${this.a}</span>
 				<span class="icon"><i  class="fa-solid fa-heart"></i></span>`
                     new TotalLikes().counter()
                     return this.button
                } else {
                     clicked = false
-                    this.button.innerHTML = `<span class="num-likes">${this.b}</span>
+                    this.button.innerHTML = `<span aria-label='il y'a ${this.a} sur cette photo' class="num-likes">${this.b}</span>
 				<span class="icon"><i  class="fa-regular fa-heart"></i></span>`
                     new TotalLikes().counter()
                     return this.button

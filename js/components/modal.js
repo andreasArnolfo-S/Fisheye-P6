@@ -46,10 +46,9 @@ export default class Modal {
                  `
         })
 		modal.setAttribute('aria-hidden', 'true')
-
 		this._btnModal.addEventListener('click', () => {
 			modal.style.display = 'block'
-		})
+        })
 
 		return modal
 	}
