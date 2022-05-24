@@ -60,7 +60,7 @@ export class PhotographerPage {
 		})
 		date.addEventListener('click', () => {
 			this.replaceArticle()
-			this.mediasData.sort((o) => { return new Date(o.date) })
+			this.mediasData.sort((o, d) => { return new Date(o.date) - new Date(d.date) })
 			this.displayMedia()
 		})
 		title.addEventListener('click', () => {
