@@ -18,7 +18,6 @@ export class Form {
       const firstNameRegex = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]{2,}[-]?([\w]+)?([-\d])?/.test(firstname.value)
       const emailRegex = /^(\w[-\.]?)*@[\w]{1,}(\.\w{2,3}){1,2}$/.test(email.value)
 
-
       form.appendChild(errorMesage)
       this.array = []
       /* C'est une condition qui vérifie si le formulaire est valide. S'il est valide, il pousse les
