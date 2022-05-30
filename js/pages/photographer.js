@@ -1,12 +1,11 @@
 import '../../css/style.scss'
-import { PhotographerApi, MediaApi } from '../utils/api'
+import { PhotographerApi, MediaApi } from '../Api/api'
 import { TotalLikes } from '../components/TotalLike'
 import { TrieSysteme } from '../components/trieSysteme'
 import Modal from '../components/modal'
-import { Form } from './../utils/form'
-import { PhotographerBuilder } from '../factory/photographerBuild'
 import { PhotographerMedia } from './../factory/mediasFactory'
 import { NavigatePH } from '../utils/navigate'
+import { PhotographeFactory } from './../factory/photographeFactory'
 
 export class PhotographerPage {
 	constructor () {
@@ -20,7 +19,7 @@ export class PhotographerPage {
 	async photographer () {
 		const photographerData = await new PhotographerApi().getPhotographer(this.id)
 
-		this.photographerHeader.appendChild(new PhotographerBuilder(photographerData[0]).display('photographer'))
+		this.photographerHeader.appendChild(new PhotographeFactory(photographerData[0], 'photographer'))
 
 		/* Créer une nouvelle instance de la classe TrieSysteme et l'ajouter au DOM. */
 		this.photographerMedia.appendChild(new TrieSysteme().trieSysteme())
@@ -36,9 +35,9 @@ export class PhotographerPage {
 		this.main.appendChild(new Modal(photographerData).createModalTemplate())
 
 		new Modal(photographerData).closeModal()
-
+		new Modal(photographerData).openModal()
 		/* Créer une nouvelle instance de la classe Form et appeler la méthode de validation dessus. */
-		new Form().validation()
+		new Modal(photographerData).OnSubmit()
 		new NavigatePH().navigate()
 	}
 

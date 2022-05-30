@@ -49,9 +49,10 @@ export class LightboxMedia {
 				this._slides.appendChild(this._img)
 			} else if (this.mediaVideo) {
 				this._video = CreateElement('video', {
-					src: ` ../../assets/medias/${el.video}`,
+					innerHtml: `<source src="../../assets/medias/${el.video}" type="video/mp4">`,
 					alt: `${el.title}`
 				})
+				this._video.setAttribute('controls', 'controls')
 				this._slides.appendChild(this._video)
 			}
 			this._slides.appendChild(this.title)

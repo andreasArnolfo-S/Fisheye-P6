@@ -1,7 +1,7 @@
 import '../../css/style.scss'
-import { AllPhotographersApi } from '../utils/api'
-import { PhotographerBuilder } from '../factory/photographerBuild'
+import { AllPhotographersApi } from '../Api/api'
 import { NavigateHome } from '../utils/navigate'
+import { PhotographeFactory } from './../factory/photographeFactory'
 
 /* C'est une classe qui récupère tous les photographes de la base de données et les affiche sur la page
 d'accueil */
@@ -17,8 +17,7 @@ export class HomePage {
           const photographersData = await this.photographersApi.getPhotographers()
 
           for (const photographer of photographersData) {
-               const template = new PhotographerBuilder(photographer)
-               this.photographerSection.appendChild(template.display('home'))
+               this.photographerSection.appendChild(new PhotographeFactory(photographer, 'home'))
           }
 
           const navigate = new NavigateHome()

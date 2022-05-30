@@ -1,35 +1,25 @@
 import { CreateElement } from '../utils/CreateElement'
-import { MediaBuild } from './mediasBuild'
 import { TotalLikes } from './../components/TotalLike'
+import Media from './media'
+import { LightboxMedia } from './../components/lightbox'
 /* Il crée un élément média (image ou vidéo) avec un bouton like et un titre */
-export class PhotographerMedia {
+export class PhotographerMedia extends Media {
 	constructor (data, allmedia) {
+		super(data.title, data.likes, data.image, data.video)
 		this.media = data
 		this.allmedia = allmedia
 	}
 
 	createPhotographerMedia (index) {
 		const article = CreateElement('article', {
-			class: 'article'
+			class: 'article',
+			tabindex: '-1'
 		})
-		article.setAttribute('tabindex', '-1')
 		const likecontent = CreateElement('div', {
 			class: 'like-content'
 		})
-		const title = CreateElement('h2', {
-			class: 'photo-title',
-			innerHTML: this.media.title,
-			ariaLabel: `le titre de cette photo est ${this.media.title}`
-		})
-          title.setAttribute('tabindex', '0')
-		this.button = CreateElement('button', {
-			class: 'likeBtn',
-			innerHTML: `<span aria-label='il y'a ${this.media.likes} sur cette photo' class="num-likes">${this.media.likes}</span>
-			<span class="icon"><i  class="fa-regular fa-heart"></i></span>`,
-			ariaLabel: `cette photo a actuellement ${this.media.likes} like ! en appuyant sur entré vous ajouterz un like`
-		})
 
-		likecontent.appendChild(title)
+		likecontent.appendChild(this.title)
 		likecontent.appendChild(this.button)
 
 		article.appendChild(likecontent)
@@ -37,10 +27,19 @@ export class PhotographerMedia {
 		this.mediaVideo = Object.prototype.hasOwnProperty.call(this.media, 'video')
 
 		if (this.mediaImage) {
-			article.appendChild(new MediaBuild(this.media, this.allmedia).factory('image', index))
+			article.appendChild(this.img)
+			this.img.addEventListener('click', () => {
+				const lightbox = new LightboxMedia(this.allmedia, this.media)
+				return lightbox.openLightbox(index)
+			})
 		} else if (this.mediaVideo) {
-			article.appendChild(new MediaBuild(this.media, this.allmedia).factory('video', index))
+			article.appendChild(this.video)
+			this.video.addEventListener('click', () => {
+				const lightbox = new LightboxMedia(this.allmedia)
+				return lightbox.openLightbox(index)
+			})
 		}
+
 		this.like()
 		return article
 	}
@@ -55,13 +54,13 @@ export class PhotographerMedia {
                     clicked = true
                     this.button.innerHTML = `<span aria-label='il y'a ${this.a} sur cette photo' class="num-likes">${this.a}</span>
 				<span class="icon"><i  class="fa-solid fa-heart"></i></span>`
-                    new TotalLikes().counter()
+                    new TotalLikes().likecounter()
                     return this.button
                } else {
                     clicked = false
                     this.button.innerHTML = `<span aria-label='il y'a ${this.a} sur cette photo' class="num-likes">${this.b}</span>
 				<span class="icon"><i  class="fa-regular fa-heart"></i></span>`
-                    new TotalLikes().counter()
+                    new TotalLikes().likecounter()
                     return this.button
                }
           })

@@ -1,10 +1,10 @@
-import { PhotographeFactory } from '../factory/photographeFactory'
 import { CreateElement } from '../utils/CreateElement'
+import Photographe from '../factory/photographe'
 
-export class PhotographerHome extends PhotographeFactory {
+export class PhotographerHome extends Photographe {
 
      constructor (data) {
-          super(data.name, data.city, data.country, data.tagline, data.portrait, data.price, data.id)
+          super(data.name, data.city, data.country, data.tagline, data.price, data.portrait, data.id)
      }
 
      render () {
