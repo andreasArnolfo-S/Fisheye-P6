@@ -1,5 +1,6 @@
 import { CreateElement } from './../utils/CreateElement'
 
+/* C'est une classe qui crée un objet média avec un titre, des likes, une image ou une vidéo. */
 export default class Media {
 
      constructor (title, likes, image, video) {

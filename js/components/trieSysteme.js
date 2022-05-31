@@ -7,28 +7,35 @@ export class TrieSysteme {
           const content = CreateElement('div', {
                class: 'trieContainer'
           })
-          const dropBtn = CreateElement('button', {
+          const txt = CreateElement('p', {
+               class: 'trieText',
+               innerHTML: 'Trier par :'
+          })
+          const dropBtn = CreateElement('select', {
                class: 'dropDownBtn',
                innerHtml: 'Trier par'
           })
-          const dropCtn = CreateElement('div', {
+          const dropCtn = CreateElement('select', {
                class: 'dropdown-content'
           })
-          const alpha = CreateElement('p', {
+          const alpha = CreateElement('option', {
                class: 'titleDrop',
-               innerHtml: 'Titre'
+               innerHtml: 'Titre',
+               value: 'title'
           })
-          const popular = CreateElement('p', {
+          const popular = CreateElement('option', {
                class: 'popDrop',
-               innerHtml: 'Popularité'
+               innerHtml: 'Popularité',
+               value: 'popular'
           })
-          const date = CreateElement('p', {
+          const date = CreateElement('option', {
                class: 'dateDrop',
-               innerHtml: 'Date'
+               innerHtml: 'Date',
+               value: 'date'
           })
 
           dropCtn.append(alpha, popular, date)
-          content.append(dropBtn, dropCtn)
+          content.append(txt, dropCtn)
 
           dropBtn.addEventListener('click', () => {
                dropCtn.classList.toggle('show')

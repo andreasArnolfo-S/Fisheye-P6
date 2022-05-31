@@ -1,4 +1,6 @@
 /* eslint-disable no-useless-escape */
+/* Il vérifie si les entrées nom, prénom et email sont valides et si la zone de texte du message n'est
+pas vide */
 export default class FormValidation {
      constructor () {
           this.firstname = document.querySelector('#firstname')

@@ -34,7 +34,6 @@ export class PhotographerPage {
 		/* Création d'une fenêtre modale. */
 		this.main.appendChild(new Modal(photographerData).createModalTemplate())
 
-		new Modal(photographerData).closeModal()
 		new Modal(photographerData).openModal()
 		/* Créer une nouvelle instance de la classe Form et appeler la méthode de validation dessus. */
 		new Modal(photographerData).OnSubmit()
@@ -48,25 +47,32 @@ export class PhotographerPage {
 	async trie () {
 		this.mediasData = await new MediaApi().getMedia(this.id)
 
-		const popular = document.querySelector('.popDrop')
-		const date = document.querySelector('.dateDrop')
-		const title = document.querySelector('.titleDrop')
+		const sel = document.querySelector('.dropdown-content')
 
-		popular.addEventListener('click', () => {
-			this.replaceArticle()
-			this.mediasData.sort((a, b) => b.likes - a.likes)
-			this.displayMedia()
+		sel.addEventListener('click', (e) => {
+			e.preventDefault()
+
+			switch (sel.selectedIndex) {
+				case 0:
+					this.replaceArticle()
+					this.mediasData.sort((a, b) => a.title.localeCompare(b.title))
+					this.displayMedia()
+					break
+				case 1:
+					this.replaceArticle()
+					this.mediasData.sort((a, b) => b.likes - a.likes)
+					this.displayMedia()
+					break
+				case 2:
+					this.replaceArticle()
+					this.mediasData.sort((a, b) => new Date(b.date) - new Date(a.date))
+					this.displayMedia()
+					break
+				default:
+					break
+			}
 		})
-		date.addEventListener('click', () => {
-			this.replaceArticle()
-			this.mediasData.sort((o, d) => { return new Date(o.date) - new Date(d.date) })
-			this.displayMedia()
-		})
-		title.addEventListener('click', () => {
-			this.replaceArticle()
-			this.mediasData.sort((a, b) => a.title.localeCompare(b.title))
-			this.displayMedia()
-		})
+
 		this.displayMedia()
 
 		return this.mediasData
