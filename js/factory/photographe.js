@@ -1,6 +1,7 @@
-// build class photographe create all element of my phtographer page
 import { CreateElement } from '../utils/CreateElement'
 
+/* Il crée une nouvelle instance d'un photographe, avec un nom, une ville, un pays, un slogan, un prix,
+un portrait et un identifiant. */
 export default class Photographe {
 
      constructor (name, city, country, tagline, price, portrait, id) {

@@ -10,6 +10,8 @@ export default class Modal {
         this._btnModal = document.querySelector('.buttonModal')
         this._data = data[0]
         this._btnModal.setAttribute('aria-label', `Bouton qui ouvre le formulaire de contact de ${this._data.name}`)
+        this.photographerHeader = document.querySelector('.photograph-header')
+        this.photographerMedia = document.querySelector('.media-content')
     }
 
     /* Création d'une fenêtre modale avec un formulaire pour me contacter. */
@@ -53,59 +55,53 @@ export default class Modal {
 
     openModal () {
         const modal = document.querySelector('.contact_modal')
+        const btnCloseModal = document.querySelector('.closeModal')
         const form = document.querySelector('#contact-form')
+
         this.i = 0
         this.open = false
         this._btnModal.addEventListener('click', () => {
             modal.classList.remove('contact_modal')
             modal.classList.add('open-modal')
             this.open = true
-            if (this.open === true) {
-                document.addEventListener('keydown', (e) => {
-                    if (e.key !== 'Tab' && e.key !== 'Escape') return
-                    e.preventDefault()
-                    switch (e.key) {
-                        case 'Escape':
-                            modal.classList.add('contact_modal')
-                            modal.classList.remove('open-modal')
-                            this.open = false
-                            e.stopPropagation()
-                            break
-                        case 'Tab':
-                            this.i++
-                            if (this.i > form.childNodes.length) {
-                                this.i = 0
-                            }
-                            form.childNodes[this.i].focus()
-                            break
-                        default:
-                            break
-                    }
-                })
-            } else if (this.open === false) {
-                new NavigatePH().navigate()
-                console.log('coucou')
-            }
-
         })
-
-    }
-
-    /**
-     * C'est une fonction qui ferme le modal lorsque l'utilisateur clique sur le bouton de fermeture ou
-     * appuie sur la touche d'échappement.
-     */
-    closeModal () {
-        const btnCloseModal = document.querySelector('.closeModal')
-        const modal = document.querySelector('.contact_modal')
-
         btnCloseModal.addEventListener('click', () => {
             modal.classList.add('contact_modal')
             modal.classList.remove('open-modal')
             this.open = false
         })
+
+        document.addEventListener('keydown', (e) => {
+            if (this.open === true) {
+                if (e.key !== 'Tab' && e.key !== 'Escape') return
+                e.preventDefault()
+                switch (e.key) {
+                    case 'Escape':
+                        modal.classList.add('contact_modal')
+                        modal.classList.remove('open-modal')
+                        this.open = false
+                        e.stopPropagation()
+                        break
+                    case 'Tab':
+                        this.i++
+                        if (this.i > form.childNodes.length) {
+                            this.i = 0
+                        }
+                        form.childNodes[this.i].focus()
+                        break
+                }
+
+            } else {
+                new NavigatePH().navigate()
+            }
+        })
+
     }
 
+    /**
+     * Il valide le formulaire et si le formulaire est valide, il pousse les valeurs des entrées dans un
+     * tableau
+     */
     OnSubmit () {
         this.firstname = document.querySelector('#firstname')
         this.lastname = document.querySelector('#lastname')

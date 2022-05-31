@@ -1,3 +1,4 @@
+/* C'est une classe qui permet de naviguer dans les cartes avec les touches fléchées */
 export class NavigateHome {
      navigate () {
           /* Une fonction qui permet de naviguer dans les cartes avec les touches fléchées. */
@@ -33,6 +34,7 @@ export class NavigateHome {
      }
 }
 
+/* Il permet de naviguer dans une liste d'éléments à l'aide des touches fléchées */
 export class NavigatePH {
      navigate () {
           this.articles = document.querySelectorAll('.article')
@@ -62,5 +64,6 @@ export class NavigatePH {
                const currentArticle = this.i
                return this.articles[currentArticle].focus()
           })
+
      }
 }
