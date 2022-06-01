@@ -37,8 +37,10 @@
 		option {
 			color: #fff;
 			padding: 12px 16px;
+			height: 8px;
 			text-decoration: none;
 			display: block;
+			border-bottom: 1px solid #fff;
 			cursor: pointer;
 			&:hover {
 				background-color: #D3573C;

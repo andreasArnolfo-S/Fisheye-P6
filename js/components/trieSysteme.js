@@ -16,7 +16,8 @@ export class TrieSysteme {
                innerHtml: 'Trier par'
           })
           const dropCtn = CreateElement('select', {
-               class: 'dropdown-content'
+               class: 'dropdown-content',
+               ariaLabel: 'Trier par'
           })
           const alpha = CreateElement('option', {
                class: 'titleDrop',

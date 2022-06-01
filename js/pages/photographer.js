@@ -46,7 +46,7 @@ export class PhotographerPage {
 	 */
 	async trie () {
 		this.mediasData = await new MediaApi().getMedia(this.id)
-
+		this.mediasData.sort((a, b) => a.title.localeCompare(b.title))
 		const sel = document.querySelector('.dropdown-content')
 
 		sel.addEventListener('click', (e) => {

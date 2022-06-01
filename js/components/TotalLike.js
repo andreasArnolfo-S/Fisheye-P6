@@ -1,4 +1,6 @@
 import { CreateElement } from '../utils/CreateElement'
+/* Il prend le nombre de likes de chaque publication et les additionne pour obtenir le nombre total de
+likes */
 export class TotalLikes {
      constructor (data) {
           this.data = data
@@ -33,10 +35,10 @@ export class TotalLikes {
                class: 'static-counter',
                innerHTML: ` 
                <div class='totalLikes'>
-                    <h4 class='counter'>${this.sum}</h5>
+                    <h1 class='counter'>${this.sum}</h1>
                     <i  class="fa-solid fa-heart"></i>
                </div>
-               <p>${this.data[0].price}$ / jour</p>`
+               <h1 class='priceDay'>${this.data[0].price}$ / jour</h1>`
           })
 
           return counter

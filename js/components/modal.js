@@ -22,10 +22,10 @@ export default class Modal {
             innerHtml: `<div class="modal" aria-hidden='true'>
             <div class="modal-header">
                 <div>
-                  <h2>Contactez-moi</h2>
-                  <h2>${this._data.name}</h2>
+                  <h2 tabindex='0'>Contactez-moi</h2>
+                  <h2 tabindex='0'>${this._data.name}</h2>
                 </div>
-                  <img src="./assets/icons/close.svg" class="closeModal" alt="image pour fermer la modal" />
+                  <img src="./assets/icons/close.svg" class="closeModal" alt="image pour fermer la modal" tabindex='0' />
               </div>
               <form action="" method="get" id="contact-form">
 
@@ -42,8 +42,8 @@ export default class Modal {
                     <textarea tabindex='0' type="text" id="message"></textarea>
 
                   <button tabindex='0' type='submit' class="contact_button">Envoyer</button>
-                <div tabindex='0' class="error-message" style="visibility: hidden;">
-                  <p tabindex='0'>Une erreur est survenue veuiller verifier vos informations : <ul><li>Veuillez entrer un prénom comportant 2 caractères ou plus</li><li>Veuillez entrer un nom comportant 2 caractères ou plus</li><li>Une addresse email valide</li></ul></p>
+                <div class="error-message" style="visibility: hidden;">
+                  <p tabindex='0'>Une erreur est survenue veuiller verifier vos informations : <ul><li tabindex='0'>Veuillez entrer un prénom comportant 2 caractères ou plus</li><li tabindex='0'>Veuillez entrer un nom comportant 2 caractères ou plus</li><li tabindex='0'>Une addresse email valide</li></ul></p>
                 </div>
               </form>
 
@@ -56,7 +56,6 @@ export default class Modal {
     openModal () {
         const modal = document.querySelector('.contact_modal')
         const btnCloseModal = document.querySelector('.closeModal')
-        const form = document.querySelector('#contact-form')
 
         this.i = 0
         this.open = false
@@ -70,7 +69,23 @@ export default class Modal {
             modal.classList.remove('open-modal')
             this.open = false
         })
-
+        const tab = modal.querySelectorAll('[tabindex="0"]')
+        console.log(tab)
+        let shift = false
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Shift') {
+                shift = true
+            }
+        })
+        document.addEventListener('keyup', (e) => {
+            if (e.key === 'Shift') {
+                shift = false
+            }
+            if (shift && e.key === 'Tab') {
+                this.i -= 2
+                tab[this.i].focus()
+            }
+        })
         document.addEventListener('keydown', (e) => {
             if (this.open === true) {
                 if (e.key !== 'Tab' && e.key !== 'Escape') return
@@ -84,10 +99,10 @@ export default class Modal {
                         break
                     case 'Tab':
                         this.i++
-                        if (this.i > form.childNodes.length) {
+                        if (this.i > tab.length - 1) {
                             this.i = 0
                         }
-                        form.childNodes[this.i].focus()
+                        tab[this.i].focus()
                         break
                 }
 
