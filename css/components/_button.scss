@@ -17,6 +17,10 @@
 	display: flex;
 	align-items: center;
 	margin: 0 100px;
+	.trieText {
+		font-size: 20px;
+		font-weight: bold;
+	}
 
 	.dropdown-content {
 		font-weight: bold;
@@ -29,11 +33,16 @@
 		box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 		font-size: 20px;
 		width: 170px;
-		height: 70px;
+		height: 50px;
 		border: none;
 		border-radius: 5px;
 		text-align: center;
-
+		margin-left: 15px;
+		hr {
+			border:#fff !important;
+			color: #fff;
+			border-radius: 5px;
+		}
 		option {
 			color: #fff;
 			padding: 12px 16px;
@@ -43,7 +52,7 @@
 			border-bottom: 1px solid #fff;
 			cursor: pointer;
 			&:hover {
-				background-color: #D3573C;
+				background-color: #d3573c;
 				color: #f1f1f1;
 			}
 		}

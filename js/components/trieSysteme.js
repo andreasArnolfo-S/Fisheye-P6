@@ -11,10 +11,6 @@ export class TrieSysteme {
                class: 'trieText',
                innerHTML: 'Trier par :'
           })
-          const dropBtn = CreateElement('select', {
-               class: 'dropDownBtn',
-               innerHtml: 'Trier par'
-          })
           const dropCtn = CreateElement('select', {
                class: 'dropdown-content',
                ariaLabel: 'Trier par'
@@ -34,13 +30,15 @@ export class TrieSysteme {
                innerHtml: 'Date',
                value: 'date'
           })
-
-          dropCtn.append(alpha, popular, date)
-          content.append(txt, dropCtn)
-
-          dropBtn.addEventListener('click', () => {
-               dropCtn.classList.toggle('show')
+          const separator = CreateElement('hr', {
+               class: 'separator'
           })
+          const separator2 = CreateElement('hr', {
+               class: 'separator'
+          })
+
+          dropCtn.append(alpha, separator, popular, separator2, date)
+          content.append(txt, dropCtn)
 
           return content
      }
