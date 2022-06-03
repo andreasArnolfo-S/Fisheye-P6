@@ -1,6 +1,7 @@
 import { CreateElement } from '../utils/CreateElement'
 import Photographe from '../factory/photographe'
 
+/* C'est une classe qui crée une carte pour chaque photographe. */
 export class PhotographerHome extends Photographe {
 
      constructor (data) {

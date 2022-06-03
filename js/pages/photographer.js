@@ -54,19 +54,16 @@ export class PhotographerPage {
 
 			switch (sel.selectedIndex) {
 				case 0:
-					this.replaceArticle()
 					this.mediasData.sort((a, b) => a.title.localeCompare(b.title))
-					this.displayMedia()
+					this.replaceArticle()
 					break
 				case 1:
-					this.replaceArticle()
 					this.mediasData.sort((a, b) => b.likes - a.likes)
-					this.displayMedia()
+					this.replaceArticle()
 					break
 				case 2:
-					this.replaceArticle()
 					this.mediasData.sort((a, b) => new Date(b.date) - new Date(a.date))
-					this.displayMedia()
+					this.replaceArticle()
 					break
 				default:
 					break
@@ -82,9 +79,18 @@ export class PhotographerPage {
 	 * Il supprime tous les articles de la div photographeMedia.
 	 */
 	replaceArticle () {
-		const article = document.querySelectorAll('.article')
-		article.forEach((e) => {
-			this.photographerMedia.removeChild(e)
+		const articles = Array.from(document.querySelectorAll('.article'))
+
+		this.mediasData.forEach((element, index) => {
+
+			const node = articles.find((article) => {
+				const inputNode = article.querySelector('input').value
+				const id = Number.parseInt(inputNode)
+				return id === element.id
+			})
+			if (node) {
+				this.photographerMedia.appendChild(node)
+			}
 		})
 	}
 

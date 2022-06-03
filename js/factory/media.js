@@ -3,7 +3,7 @@ import { CreateElement } from './../utils/CreateElement'
 /* C'est une classe qui crée un objet média avec un titre, des likes, une image ou une vidéo. */
 export default class Media {
 
-     constructor (title, likes, image, video) {
+     constructor (title, likes, image, video, id) {
           if (image !== undefined) {
                this.img = CreateElement('img', {
                     src: ` ../../assets/medias/${image}`,
@@ -30,6 +30,10 @@ export default class Media {
                innerHTML: `<span aria-label='il y'a ${likes} sur cette photo' class="num-likes">${likes}</span>
 			<span class="icon"><i  class="fa-regular fa-heart"></i></span>`,
                ariaLabel: `cette photo a actuellement ${likes} like ! en appuyant sur entré vous ajouterz un like`
+          })
+          this.id = CreateElement('input', {
+               type: 'hidden',
+               value: id
           })
      }
 }
