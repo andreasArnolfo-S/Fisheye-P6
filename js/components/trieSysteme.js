@@ -7,7 +7,7 @@ export class TrieSysteme {
           const content = CreateElement('div', {
                class: 'trieContainer'
           })
-          const txt = CreateElement('p', {
+          const txt = CreateElement('h1', {
                class: 'trieText',
                innerHTML: 'Trier par :'
           })

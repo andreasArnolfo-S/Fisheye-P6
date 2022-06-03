@@ -1,6 +1,9 @@
 import { CreateElement } from './../utils/CreateElement'
 import Photographe from './../factory/photographe'
 
+/* C'est une classe qui étend la classe Photographe et rend une section avec un div contenant le nom,
+la ville et le slogan du photographe, un div contenant un bouton et un div contenant le portrait du
+photographe. */
 export class PhotographerHeader extends Photographe {
 
      constructor (data) {

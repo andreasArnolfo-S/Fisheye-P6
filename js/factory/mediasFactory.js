@@ -5,7 +5,7 @@ import { LightboxMedia } from './../components/lightbox'
 /* Il crée un élément média (image ou vidéo) avec un bouton like et un titre */
 export class PhotographerMedia extends Media {
 	constructor (data, allmedia) {
-		super(data.title, data.likes, data.image, data.video)
+		super(data.title, data.likes, data.image, data.video, data.id)
 		this.media = data
 		this.allmedia = allmedia
 	}
@@ -21,6 +21,7 @@ export class PhotographerMedia extends Media {
 
 		likecontent.appendChild(this.title)
 		likecontent.appendChild(this.button)
+		likecontent.appendChild(this.id)
 
 		article.appendChild(likecontent)
 		this.mediaImage = Object.prototype.hasOwnProperty.call(this.media, 'image')
@@ -44,6 +45,12 @@ export class PhotographerMedia extends Media {
 		return article
 	}
 
+	/**
+	 * La fonction est appelée lorsque l'utilisateur clique sur le bouton J'aime. Si l'utilisateur n'a pas
+	 * cliqué sur le bouton, le bouton sera cliqué et le nombre de likes sera incrémenté de un. Si
+	 * l'utilisateur a déjà cliqué sur le bouton, le bouton sera décoché et le nombre de likes sera
+	 * décrémenté de un.
+	 */
      like () {
           let clicked = false
           /* Ajout d'un écouteur d'événement au bouton. */

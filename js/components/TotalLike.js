@@ -23,6 +23,11 @@ export class TotalLikes {
 
      }
 
+     /**
+      * Il prend le nombre de likes de chaque publication et les additionne pour obtenir un nombre total de
+      * likes.
+      * @returns la variable compteur.
+      */
      templates () {
           this.likes = document.querySelectorAll('.num-likes')
           this.likeNumArray = Array.from(this.likes, e => parseFloat(e.innerText))
