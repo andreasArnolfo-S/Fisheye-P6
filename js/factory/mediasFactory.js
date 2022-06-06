@@ -20,7 +20,7 @@ export class PhotographerMedia extends Media {
 		})
 
 		likecontent.appendChild(this.title)
-		likecontent.appendChild(this.button)
+		likecontent.appendChild(this.span)
 		likecontent.appendChild(this.id)
 
 		article.appendChild(likecontent)
@@ -54,21 +54,21 @@ export class PhotographerMedia extends Media {
      like () {
           let clicked = false
           /* Ajout d'un écouteur d'événement au bouton. */
-          this.button.addEventListener('click', () => {
+          this.span.addEventListener('click', () => {
                this.a = this.media.likes + 1
                this.b = this.a - 1
                if (!clicked) {
                     clicked = true
-                    this.button.innerHTML = `<span aria-label='il y'a ${this.a} sur cette photo' class="num-likes">${this.a}</span>
+                    this.span.innerHTML = `<span aria-label='il y'a ${this.a} sur cette photo' class="num-likes">${this.a}</span>
 				<span class="icon"><i  class="fa-solid fa-heart"></i></span>`
                     new TotalLikes().likecounter()
-                    return this.button
+                    return this.span
                } else {
                     clicked = false
-                    this.button.innerHTML = `<span aria-label='il y'a ${this.a} sur cette photo' class="num-likes">${this.b}</span>
+                    this.span.innerHTML = `<span aria-label='il y'a ${this.a} sur cette photo' class="num-likes">${this.b}</span>
 				<span class="icon"><i  class="fa-regular fa-heart"></i></span>`
                     new TotalLikes().likecounter()
-                    return this.button
+                    return this.span
                }
           })
      }

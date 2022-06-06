@@ -14,6 +14,7 @@ export class PhotographerPage {
 		this.photographerHeader = document.querySelector('.photograph-header')
 		this.photographerMedia = document.querySelector('.media-content')
 		this.main = document.querySelector('body')
+		this.logo = document.querySelector('.logo')
 	}
 
 	async photographer () {
@@ -38,6 +39,10 @@ export class PhotographerPage {
 		/* Créer une nouvelle instance de la classe Form et appeler la méthode de validation dessus. */
 		new Modal(photographerData).OnSubmit()
 		new NavigatePH().navigate()
+
+		this.logo.addEventListener('click', () => {
+			window.location.href = 'index.html'
+		})
 	}
 
 	/**

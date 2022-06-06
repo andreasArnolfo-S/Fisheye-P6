@@ -6,13 +6,13 @@ export default class Photographe {
 
      constructor (name, city, country, tagline, price, portrait, id) {
 
-          this.PHname = CreateElement('h1', {
+          this.PHname = CreateElement('h2', {
                class: 'ph_name',
                innerHtml: `${name}`,
                tabindex: '0',
                ariaLabel: `nom : ${name}`
           })
-          this.PHcity = CreateElement('h2', {
+          this.PHcity = CreateElement('p', {
                class: 'ph_city',
                innerHtml: ` ${city + ', ' + country}`,
                tabindex: '0',
@@ -40,6 +40,7 @@ export default class Photographe {
           this.link = CreateElement('a', {
                href: `photographers.html?id=${id}`,
                class: 'links',
+               tabindex: '0',
                ariaLabel: `renvoie a la page personnel de ${name}`
           })
      }

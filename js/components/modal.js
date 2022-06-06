@@ -27,7 +27,7 @@ export default class Modal {
                 </div>
                   <img src="./assets/icons/close.svg" class="closeModal" alt="image pour fermer la modal" tabindex='0' />
               </div>
-              <form action="" method="get" id="contact-form">
+              <form method="get" id="contact-form">
 
                     <label tabindex='0' for="firstname">Prénom :</label>
                     <input tabindex='0' type="text" name="firstname" id="firstname" >
@@ -39,7 +39,7 @@ export default class Modal {
                     <input tabindex='0' type="email" name="email" id="email">
 
                     <label tabindex='0' for="message">Votre message</label>
-                    <textarea tabindex='0' type="text" id="message"></textarea>
+                    <textarea tabindex='0' id="message"></textarea>
 
                   <button tabindex='0' type='submit' class="contact_button">Envoyer</button>
                 <div class="error-message" style="visibility: hidden;">

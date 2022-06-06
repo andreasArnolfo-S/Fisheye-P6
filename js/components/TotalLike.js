@@ -12,7 +12,7 @@ export class TotalLikes {
       * @returns La somme des likes.
       */
      async likecounter () {
-          this.likes = document.querySelectorAll('.num-likes')
+          this.likes = document.querySelectorAll('.likeBtn')
           this.total = document.querySelector('.counter')
           this.likeNumArray = Array.from(this.likes, e => parseFloat(e.innerText))
           this.sum = 0
@@ -29,7 +29,7 @@ export class TotalLikes {
       * @returns la variable compteur.
       */
      templates () {
-          this.likes = document.querySelectorAll('.num-likes')
+          this.likes = document.querySelectorAll('.likeBtn')
           this.likeNumArray = Array.from(this.likes, e => parseFloat(e.innerText))
           this.sum = 0
           for (let i = 0; i < this.likeNumArray.length; i++) {

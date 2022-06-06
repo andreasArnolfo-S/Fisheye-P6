@@ -25,10 +25,15 @@ export default class Media {
                tabindex: '0'
           })
 
-          this.button = CreateElement('button', {
+          // this.button = CreateElement('button', {
+          //      class: 'likeBtn',
+          //      innerHTML: `<span aria-label='il y'a ${likes} sur cette photo class="num-likes">${likes}</span>
+		// 	<span class="icon"><i  class="fa-regular fa-heart"></i></span>`,
+          //      ariaLabel: `cette photo a actuellement ${likes} like ! en appuyant sur entré vous ajouterz un like`
+          // })
+          this.span = CreateElement('span', {
                class: 'likeBtn',
-               innerHTML: `<span aria-label='il y'a ${likes} sur cette photo' class="num-likes">${likes}</span>
-			<span class="icon"><i  class="fa-regular fa-heart"></i></span>`,
+               innerHTML: `${likes} <i  class="fa-regular fa-heart"></i>`,
                ariaLabel: `cette photo a actuellement ${likes} like ! en appuyant sur entré vous ajouterz un like`
           })
           this.id = CreateElement('input', {
